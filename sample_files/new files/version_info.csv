@@ -1,0 +1,390 @@
+
+dns-mgmt;bindconfig-1;2.1.1
+dns-mgmt;Chrony;3.4
+dns-mgmt;Filebeat;7.15.1
+dns-mgmt;FirewallD;0.6.3
+dns-mgmt;F-Secure Linux Security;12.0.50
+dns-mgmt;linuxconfig-7;2.1.1
+dns-mgmt;Linux kernel;3.10.0-1160.53.1.el7.x86_64
+dns-mgmt;OpenJDK;11.0.17
+dns-mgmt;OpenSSH;7.4p1
+dns-mgmt;OpenSSL;1.0.2k-fips
+dns-mgmt;Rsyslog;8.24.0
+dns-mgmt;Zulu OpenJDK 64-Bit Server;11.60
+dns-mgmt;Zulu OpenJDK RTE;11.60
+ext-srv-esxi;BIOS version;U32
+ext-srv-esxi;Enclosure SN;CZJ906029B
+ext-srv-esxi;Product Name;ProLiant DL360 Gen10
+firewall1;Forcepoint NGFW;6.10.11
+firewall1;Product name;1101-0-C1
+firewall1;Serial number;N0C2902071
+firewall1;STONE-ID;0b872bb16e-d5248cfc2a-0133.00-6.3.0
+firewall2;Forcepoint NGFW;6.10.11
+firewall2;Product name;1101-1-C1
+firewall2;Serial number;N0C2A4600152
+firewall2;STONE-ID;0e9344a86f-b7e9f904be-0133.01-6.3.0
+firewall3;Forcepoint NGFW;6.10.11
+firewall3;Product name;1101-0-C1
+firewall3;Serial number;N0C2902073
+firewall3;STONE-ID;4eac3372d0-04a3741d86-0133.00-6.3.0
+fw-smc;Chrony;3.4
+fw-smc;Filebeat;7.15.1
+fw-smc;FirewallD;0.6.3
+fw-smc;F-Secure Linux Security;12.0.50
+fw-smc;linuxconfig-24;2.1.1
+fw-smc;Linux kernel;3.10.0-1160.53.1.el7.x86_64
+fw-smc;OpenSSH;7.4p1
+fw-smc;OpenSSL;1.0.2k-fips
+fw-smc;Rsyslog;8.24.0
+internal-ca;Chrony;3.4
+internal-ca;Filebeat;7.15.1
+internal-ca;FirewallD;0.6.3
+internal-ca;F-Secure Linux Security;12.0.50
+internal-ca;internal-ca-ca-server-1;2.6.0
+internal-ca;linuxconfig-2;2.1.1
+internal-ca;Linux kernel;3.10.0-1160.53.1.el7.x86_64
+internal-ca;OpenSSH;7.4p1
+internal-ca;OpenSSL;1.0.2k-fips
+internal-ca;Rsyslog;8.24.0
+internal-chat;Chrony;3.4
+internal-chat;Filebeat;7.15.1
+internal-chat;FirewallD;0.6.3
+internal-chat;F-Secure Linux Security;12.0.50
+internal-chat;linuxconfig-15;2.1.1
+internal-chat;Linux kernel;3.10.0-1160.53.1.el7.x86_64
+internal-chat;OpenJDK;11.0.17
+internal-chat;OpenSSH;7.4p1
+internal-chat;OpenSSL;1.0.2k-fips
+internal-chat;Prosody;0.11.1
+internal-chat;prosody-configurator-internal-1;2.1.0
+internal-chat;Rsyslog;8.24.0
+internal-chat;xmpp-manager-internal-1;3.0.0
+internal-chat;xmpp-proxy-internal-1;2.0.0
+internal-chat;Zulu OpenJDK 64-Bit Server;11.60
+internal-chat;Zulu OpenJDK RTE;11.60
+internal-cm;call-manager-integration-server-1;2.0.3
+internal-cm;Chrony;3.4
+internal-cm;Filebeat;7.15.1
+internal-cm;FirewallD;0.6.3
+internal-cm;Freeswitch;1.10.5
+internal-cm;F-Secure Linux Security;12.0.50
+internal-cm;linuxconfig-14;2.1.1
+internal-cm;Linux kernel;3.10.0-1160.53.1.el7.x86_64
+internal-cm;OpenJDK;11.0.17
+internal-cm;OpenSSH;7.4p1
+internal-cm;OpenSSL;1.0.2k-fips
+internal-cm;Rsyslog;8.24.0
+internal-cm;Zulu OpenJDK 64-Bit Server;11.60
+internal-cm;Zulu OpenJDK RTE;11.60
+internal-core;alarm-server-1;4.1.3
+internal-core;battlespace-events-server-1;2.0.2
+internal-core;calendar-server-1;2.0.4
+internal-core;Chrony;3.4
+internal-core;contentrepo-server-1;2.1.1
+internal-core;eventsrv-1;5.1.2
+internal-core;Filebeat;7.15.1
+internal-core;file-web-server-2;2.0.1
+internal-core;FirewallD;0.6.3
+internal-core;F-Secure Linux Security;12.0.50
+internal-core;help-web-server-1;2.0.0
+internal-core;internal-core-provisioning-server-1;2.1.1
+internal-core;internal-core-ucm-osgi-server-1;2.1.2
+internal-core;linuxconfig-1;2.1.1
+internal-core;Linux kernel;3.10.0-1160.53.1.el7.x86_64
+internal-core;object-storage-server-1;2.1.2
+internal-core;OpenJDK;11.0.17
+internal-core;OpenSSH;7.4p1
+internal-core;OpenSSL;1.0.2k-fips
+internal-core;orbat-server-1;2.0.1
+internal-core;PostgreSQL;13.3
+internal-core;Rsyslog;8.24.0
+internal-core;track-server-X-1;2.0.0
+internal-core;udm-server-1;5.1.0
+internal-core;wardiary-srv-1;2.0.0
+internal-core;Zulu OpenJDK 64-Bit Server;11.60
+internal-core;Zulu OpenJDK RTE;11.60
+internal-dns-ns;bindconfig-3;2.1.1
+internal-dns-ns;Chrony;3.4
+internal-dns-ns;Filebeat;7.15.1
+internal-dns-ns;FirewallD;0.6.3
+internal-dns-ns;F-Secure Linux Security;12.0.50
+internal-dns-ns;linuxconfig-9;2.1.1
+internal-dns-ns;Linux kernel;3.10.0-1160.53.1.el7.x86_64
+internal-dns-ns;OpenJDK;11.0.17
+internal-dns-ns;OpenSSH;7.4p1
+internal-dns-ns;OpenSSL;1.0.2k-fips
+internal-dns-ns;Rsyslog;8.24.0
+internal-dns-ns;Zulu OpenJDK 64-Bit Server;11.60
+internal-dns-ns;Zulu OpenJDK RTE;11.60
+internal-dns-r;bindconfig-2;2.1.1
+internal-dns-r;Chrony;3.4
+internal-dns-r;Filebeat;7.15.1
+internal-dns-r;FirewallD;0.6.3
+internal-dns-r;F-Secure Linux Security;12.0.50
+internal-dns-r;linuxconfig-8;2.1.1
+internal-dns-r;Linux kernel;3.10.0-1160.53.1.el7.x86_64
+internal-dns-r;OpenJDK;11.0.17
+internal-dns-r;OpenSSH;7.4p1
+internal-dns-r;OpenSSL;1.0.2k-fips
+internal-dns-r;Rsyslog;8.24.0
+internal-dns-r;Zulu OpenJDK 64-Bit Server;11.60
+internal-dns-r;Zulu OpenJDK RTE;11.60
+internal-fmv;Chrony;3.4
+internal-fmv;Filebeat;8.3.3
+internal-fmv;FirewallD;0.6.3
+internal-fmv;F-Secure Linux Security;12.0.50
+internal-fmv;linuxconfig-41;2.1.1
+internal-fmv;Linux kernel;3.10.0-1160.53.1.el7.x86_64
+internal-fmv;OpenJDK;11.0.17
+internal-fmv;OpenJDK;1.8.0
+internal-fmv;OpenSSH;7.4p1
+internal-fmv;OpenSSL;1.0.2k-fips
+internal-fmv;Rsyslog;8.24.0
+internal-fmv;video-osgi-server-1;3.3.0
+internal-fmv;Zulu OpenJDK 64-Bit Server;11.60
+internal-fmv;Zulu OpenJDK 64-Bit Server;8.60.0
+internal-fmv;Zulu OpenJDK RTE;11.60
+internal-fmv;Zulu OpenJDK RTE;8.60.0
+internal-geo;Apache;2.4.53
+internal-geo;Chrony;3.4
+internal-geo;Docker;19.03.8
+internal-geo;FirewallD;0.6.3
+internal-geo;GeoMongoDB;4.4.6
+internal-geo;GeoServer;2.17.2
+internal-geo;Java;8u212
+internal-geo;Linux kernel;3.10.0-1160.53.1.el7.x86_64
+internal-geo;OpenSSH;7.4p1
+internal-geo;OpenSSL;1.0.2k-fips
+internal-geo;Portainer;2.11.1
+internal-geo;PostgreSQL;12.4
+internal-geo;Rsyslog;8.24.0
+internal-geo;Tomcat;9.0.20
+internal-ldap-gal;Chrony;3.4
+internal-ldap-gal;Filebeat;7.15.1
+internal-ldap-gal;FirewallD;0.6.3
+internal-ldap-gal;F-Secure Linux Security;12.0.50
+internal-ldap-gal;ldap-migrator-1;2.0.0
+internal-ldap-gal;linuxconfig-5;2.1.1
+internal-ldap-gal;Linux kernel;3.10.0-1160.53.1.el7.x86_64
+internal-ldap-gal;OpenJDK;11.0.17
+internal-ldap-gal;OpenLDAP;2.4.44
+internal-ldap-gal;OpenSSH;7.4p1
+internal-ldap-gal;OpenSSL;1.0.2k-fips
+internal-ldap-gal;Rsyslog;8.24.0
+internal-ldap-gal;Zulu OpenJDK 64-Bit Server;11.60
+internal-ldap-gal;Zulu OpenJDK RTE;11.60
+internal-ldap-master;Chrony;3.4
+internal-ldap-master;Filebeat;7.15.1
+internal-ldap-master;FirewallD;0.6.3
+internal-ldap-master;F-Secure Linux Security;12.0.50
+internal-ldap-master;ldap-migrator-2;2.0.0
+internal-ldap-master;ldap-sync-1;4.1.1
+internal-ldap-master;linuxconfig-4;2.1.1
+internal-ldap-master;Linux kernel;3.10.0-1160.53.1.el7.x86_64
+internal-ldap-master;OpenJDK;11.0.17
+internal-ldap-master;OpenLDAP;2.4.44
+internal-ldap-master;OpenSSH;7.4p1
+internal-ldap-master;OpenSSL;1.0.2k-fips
+internal-ldap-master;Rsyslog;8.24.0
+internal-ldap-master;Zulu OpenJDK 64-Bit Server;11.60
+internal-ldap-master;Zulu OpenJDK RTE;11.60
+internal-log;Chrony;3.4
+internal-log;Filebeat;7.15.1
+internal-log;FirewallD;0.6.3
+internal-log;F-Secure Linux Security;12.0.50
+internal-log;linuxconfig-13;2.1.1
+internal-log;Linux kernel;3.10.0-1160.53.1.el7.x86_64
+internal-log;OpenJDK;11.0.17
+internal-log;OpenSSH;7.4p1
+internal-log;OpenSSL;1.0.2k-fips
+internal-log;Rsyslog;8.24.0
+internal-log;Zulu OpenJDK 64-Bit Server;11.60
+internal-log;Zulu OpenJDK RTE;11.60
+internal-mail;Chrony;3.4
+internal-mail;Dovecot;2.2.3
+internal-mail;Filebeat;7.15.1
+internal-mail;FirewallD;0.6.3
+internal-mail;F-Secure Linux Security;12.0.50
+internal-mail;linuxconfig-16;2.1.1
+internal-mail;Linux kernel;3.10.0-1160.53.1.el7.x86_64
+internal-mail;mail-server-1;2.1.0
+internal-mail;OpenJDK;11.0.17
+internal-mail;OpenSSH;7.4p1
+internal-mail;OpenSSL;1.0.2k-fips
+internal-mail;Rsyslog;8.24.0
+internal-mail;Zulu OpenJDK 64-Bit Server;11.60
+internal-mail;Zulu OpenJDK RTE;11.60
+internal-openvas;Chrony;3.4
+internal-openvas;Docker;1.13.1
+internal-openvas;Filebeat;8.4.2
+internal-openvas;FirewallD;0.6.3
+internal-openvas;F-Secure Linux Security;12.0.35
+internal-openvas;Greenbone Vulnerability Manager;21.4.5
+internal-openvas;GV Manager revision;242
+internal-openvas;gvm-libs;21.4.4
+internal-openvas;linuxconfig;1.2.3
+internal-openvas;Linux kernel;3.10.0-1160.76.1.el7.x86_64
+internal-openvas;NGINX;1.20.1
+internal-openvas;OpenSSH;7.4p1
+internal-openvas;OpenSSL;1.0.2k-fips
+internal-openvas;OpenVAS;21.4.4
+internal-openvas;Rsyslog;8.24.0
+internal-sharing;Apache;2.4.6
+internal-sharing;Chrony;3.4
+internal-sharing;Filebeat;8.3.3
+internal-sharing;FirewallD;0.6.3
+internal-sharing;F-Secure Linux Security;12.0.35
+internal-sharing;linuxconfig;1.2.3
+internal-sharing;Linux kernel;3.10.0-1160.76.1.el7.x86_64
+internal-sharing;MariaDB;10.8.2
+internal-sharing;Nextcloud;24.0.4
+internal-sharing;Nextcloud Group Folders app;12.0.1
+internal-sharing;Nextcloud OICD Login app;2.3.2
+internal-sharing;OpenSSH;7.4p1
+internal-sharing;OpenSSL;1.0.2k-fips
+internal-sharing;PHP;7.4.27
+internal-sharing;Rsyslog;8.24.0
+internal-xwiki;Chrony;3.4
+internal-xwiki;Filebeat;8.3.3
+internal-xwiki;FirewallD;0.6.3
+internal-xwiki;F-Secure Linux Security;12.0.50
+internal-xwiki;linuxconfig-17;2.1.1
+internal-xwiki;Linux kernel;3.10.0-1160.76.1.el7.x86_64
+internal-xwiki;OpenJDK;11.0.17
+internal-xwiki;OpenSSH;7.4p1
+internal-xwiki;OpenSSL;1.0.2k-fips
+internal-xwiki;PostgreSQL;13.8
+internal-xwiki;Rsyslog;8.24.0
+internal-xwiki;XWiki;13.10.2
+internal-xwiki;xwiki-server-1;3.0.1
+internal-xwiki;Zulu OpenJDK 64-Bit Server;11.60
+internal-xwiki;Zulu OpenJDK RTE;11.60
+int-srv2-esxi;BIOS version;U32
+int-srv2-esxi;Enclosure SN;CZJ9060296
+int-srv2-esxi;Product Name;ProLiant DL360 Gen10
+int-srv-esxi;BIOS version;U32
+int-srv-esxi;Enclosure SN;CZJ9060297
+int-srv-esxi;Product Name;ProLiant DL360 Gen10
+mgmt-chat;Apache;2.4.6
+mgmt-chat;Chrony;3.4
+mgmt-chat;Filebeat;8.3.3
+mgmt-chat;FirewallD;0.6.3
+mgmt-chat;F-Secure Linux Security;12.0.35
+mgmt-chat;linuxconfig;1.2.3
+mgmt-chat;Linux kernel;3.10.0-1160.76.1.el7.x86_64
+mgmt-chat;MongoDB;4.2.22
+mgmt-chat;NodeJs;14.20.0
+mgmt-chat;OpenSSH;7.4p1
+mgmt-chat;OpenSSL;1.0.2k-fips
+mgmt-chat;RocketChat;4.7.4
+mgmt-chat;Rsyslog;8.24.0
+mgmt-fsmc;Apache;2.4.6
+mgmt-fsmc;Chrony;3.4
+mgmt-fsmc;Filebeat;8.3.3
+mgmt-fsmc;FirewallD;0.6.3
+mgmt-fsmc;F-Secure Linux Security;12.0.35
+mgmt-fsmc;linuxconfig;1.2.3
+mgmt-fsmc;Linux kernel;3.10.0-1160.76.1.el7.x86_64
+mgmt-fsmc;MongoDB;4.2.22
+mgmt-fsmc;OpenSSH;7.4p1
+mgmt-fsmc;OpenSSL;1.0.2k-fips
+mgmt-fsmc;Rsyslog;8.24.0
+mgmt-fsmc;SMCFederator;1.0.3
+mgmt-fspm;Chrony;3.4
+mgmt-fspm;Filebeat;8.4.2
+mgmt-fspm;FirewallD;0.6.3
+mgmt-fspm;F-Secure Linux Security;12.0.35
+mgmt-fspm;F-Secure Policy Manager;15.11.94088
+mgmt-fspm;linuxconfig;1.2.3
+mgmt-fspm;Linux kernel;3.10.0-1160.76.1.el7.x86_64
+mgmt-fspm;OpenSSH;7.4p1
+mgmt-fspm;OpenSSL;1.0.2k-fips
+mgmt-fspm;Rsyslog;8.24.0
+mgmt-instp;Apache;2.4.51
+mgmt-instp;Filebeat;7.17.1
+mgmt-instp;ISC-DHCP;4.4.1
+mgmt-instp;Linux kernel;5.10.0-9-amd64
+mgmt-instp;OpenSSH;8.4p1 
+mgmt-instp;OpenSSL;1.1.1k
+mgmt-instp;Rsyslog;8.2102.0
+mgmt-instp;Samba;4.13.13
+mgmt-instp;TFTP-HPA;5.2
+mgmt-ldap;Chrony;3.4
+mgmt-ldap;Filebeat;8.4.2
+mgmt-ldap;FirewallD;0.6.3
+mgmt-ldap;F-Secure Linux Security;12.0.35
+mgmt-ldap;ldap-migrator-6;2.0.0
+mgmt-ldap;linuxconfig-44;2.1.1
+mgmt-ldap;Linux kernel;3.10.0-1160.76.1.el7.x86_64
+mgmt-ldap;OpenLDAP;2.4.44
+mgmt-ldap;OpenSSH;7.4p1
+mgmt-ldap;OpenSSL;1.0.2k-fips
+mgmt-ldap;Rsyslog;8.24.0
+mgmt-nms;Chrony;3.4
+mgmt-nms;Filebeat;7.15.1
+mgmt-nms;FirewallD;0.6.3
+mgmt-nms;F-Secure Linux Security;12.0.50
+mgmt-nms;linuxconfig-25;2.1.1
+mgmt-nms;Linux kernel;3.10.0-1160.53.1.el7.x86_64
+mgmt-nms;OpenSSH;7.4p1
+mgmt-nms;OpenSSL;1.0.2k-fips
+mgmt-nms;Rsyslog;8.24.0
+mgmt-opmon;Chrony;3.4
+mgmt-opmon;Filebeat;7.15.1
+mgmt-opmon;FirewallD;0.6.3
+mgmt-opmon;F-Secure Linux Security;12.0.50
+mgmt-opmon;linuxconfig-23;2.1.1
+mgmt-opmon;Linux kernel;3.10.0-1160.53.1.el7.x86_64
+mgmt-opmon;OpenSSH;7.4p1
+mgmt-opmon;OpenSSL;1.0.2k-fips
+mgmt-opmon;opmon-server-1;3.0.0
+mgmt-opmon;Rsyslog;8.24.0
+mgmt-repo;Apache;2.4.6
+mgmt-repo;Chrony;3.4
+mgmt-repo;Filebeat;8.3.3
+mgmt-repo;FirewallD;0.6.3
+mgmt-repo;F-Secure Linux Security;12.0.35
+mgmt-repo;linuxconfig;1.2.3
+mgmt-repo;Linux kernel;3.10.0-1160.76.1.el7.x86_64
+mgmt-repo;OpenSSH;7.4p1
+mgmt-repo;OpenSSL;1.0.2k-fips
+mgmt-repo;Rsyslog;8.24.0
+mgmt-tssa;Chrony;3.4
+mgmt-tssa;Filebeat;8.3.3
+mgmt-tssa;FirewallD;0.6.3
+mgmt-tssa;F-Secure Linux Security;12.0.35
+mgmt-tssa;linuxconfig;1.2.3
+mgmt-tssa;Linux kernel;3.10.0-1160.76.1.el7.x86_64
+mgmt-tssa;OpenSSH;7.4p1
+mgmt-tssa;OpenSSL;1.0.2k-fips
+mgmt-tssa;Rsyslog;8.24.0
+mgmt-tssa;ThinLinc;4.14.0
+mgmt-wiki;Apache;2.4.6
+mgmt-wiki;Apache Tomcat;8.5.78
+mgmt-wiki;Chrony;3.4
+mgmt-wiki;Filebeat;8.3.3
+mgmt-wiki;FirewallD;0.6.3
+mgmt-wiki;F-Secure Linux Security;12.0.35
+mgmt-wiki;linuxconfig;1.2.3
+mgmt-wiki;Linux kernel;3.10.0-1160.76.1.el7.x86_64
+mgmt-wiki;OpenSSH;7.4p1
+mgmt-wiki;OpenSSL;1.0.2k-fips
+mgmt-wiki;PostgreSQL;13.8
+mgmt-wiki;Rsyslog;8.24.0
+mgmt-wiki;XWiki;13.10.8
+mgmt-wsinstall;Miradore;5.6.0  
+mgmt-wsinstall;Miradore Client;3.5.10 
+mgmt-wsinstall;OS Name;Microsoft Windows Server 2019 Standard
+mgmt-wsinstall;OS Version;10.0.17763
+router;IOS ISR;16.12.5
+router;IOS XE;16.12.05
+router;Serial number;FCZ2306B0G7
+switch1;Catalyst L3;16.6.4
+switch1;IOS XE;16.06.04
+switch1;Serial number;FOC2251X0NC
+switch2;Catalyst L3;16.6.4
+switch2;IOS XE;16.06.04
+switch2;Serial number;FCW2251C0X6
+switch3;Catalyst L3;16.6.4
+switch3;IOS XE;16.06.04
+switch3;Serial number;FCW2224F02Z
