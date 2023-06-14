@@ -1,3 +1,20 @@
+############################# Description ################################
+# This script is created for FINLION FMN project.                        #
+# This script is part of csvToJSON.py.                                   #
+#                                                                        #
+# Author: Rouvinen Juha-Matti, Insta Advance                             #
+# Date: 10/04/2023                                                       #
+# Updated: 24/05/2023                                                    #
+############################# License ####################################
+#       Copyright [2023] [Insta Advance, Juha-Matti Rouvinen]            #
+#                                                                        #
+#   Licensed under the Apache License, Version 2.0 (the "License");      #
+#   you may not use this file except in compliance with the License.     #
+#   You may obtain a copy of the License at                              #
+#                                                                        #
+#       http://www.apache.org/licenses/LICENSE-2.0                       #
+##########################################################################
+
 import os
 from main import util_tools
 

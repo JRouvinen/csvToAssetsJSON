@@ -48,6 +48,7 @@ change_log = [
     '0.411 ->  bug fix (when trying to process single file -> TypeError) #09/05/2023',
     '0.42 ->  skript creates "Project_connector" in the root of JSON #09/05/2023',
 
+
 ]
 
 # print colors

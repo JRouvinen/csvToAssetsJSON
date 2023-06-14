@@ -1,10 +1,26 @@
+############################# Description ################################
+# This script is created for FINLION FMN project.                        #
+# This script is part of csvToJSON.py.                                   #
+#                                                                        #
+# Author: Rouvinen Juha-Matti, Insta Advance                             #
+# Date: 10/04/2023                                                       #
+# Updated: 24/05/2023                                                    #
+############################# License ####################################
+#       Copyright [2023] [Insta Advance, Juha-Matti Rouvinen]            #
+#                                                                        #
+#   Licensed under the Apache License, Version 2.0 (the "License");      #
+#   you may not use this file except in compliance with the License.     #
+#   You may obtain a copy of the License at                              #
+#                                                                        #
+#       http://www.apache.org/licenses/LICENSE-2.0                       #
+##########################################################################
 
 from main import file_handler
 
 #mapping parser
 def get_mapping(type, folder):
     if type == 'vm':
-        vm_file = file_handler.file_handling('open', folder + '/' + 'vm_inventory.csv', True)
+        vm_file = file_handler.file_handling('open', folder, True)
         vm_mapping = vm_file.readlines()
         vm_mapping_dict = {}
         vm_mapping_name = vm_mapping[0].split(';')
@@ -51,15 +67,21 @@ def get_mapping(type, folder):
         sw_mapping = file_handler.file_handling('open', '/mapping/sw_mapping.ini', False)
         sw_mapping = sw_mapping.read()
         sw_mapping = sw_mapping.splitlines()
+        if sw_mapping[0].startswith('#') is True:
+            sw_mapping = sw_mapping[4:]
         sw_mapping_dic = create_dict(sw_mapping)
         #create hw mapping
         hw_mapping = file_handler.file_handling('open', '/mapping/hw_mapping.ini', False)
         hw_mapping = hw_mapping.read()
         hw_mapping = hw_mapping.splitlines()
+        if hw_mapping[0].startswith('#') is True:
+            hw_mapping = hw_mapping[4:]
         hw_mapping_dic = create_dict(hw_mapping)
         # create license mapping
         lic_mapping = file_handler.file_handling('open', '/mapping/license_mapping.ini', False)
         lic_mapping = lic_mapping.read()
         lic_mapping = lic_mapping.splitlines()
+        if lic_mapping[0].startswith('#') is True:
+            lic_mapping = lic_mapping[4:]
         lic_mapping_dic = create_dict(lic_mapping)
         return sw_mapping_dic, hw_mapping_dic, lic_mapping_dic

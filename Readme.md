@@ -1,10 +1,10 @@
-## CSV to JSON Converter v0.411
+## CSV to JSON Converter v0.43
 
 The CSV to JSON converter is a Python script that converts CSV files into JSON files. It supports Python version 3.8 or newer.
 
 ### Requirements
 
--   Python 3.8 or newer
+-   Python >=3.8
 -   Required Python modules:
     -   argparse
     -   os
@@ -23,13 +23,35 @@ The mapping files are INI files that are automatically processed, they can be pa
 
 The converter script takes the following command-line arguments:
 
--   `-f, --file`: The path to single file to be converted.
--   `-d --directory`: The path to the directory containing the files to be converted.
--   `-m --mapping`: Defines used mapping type [sw/hw].
+-   `-f, --file`: The path to single *.csv file to be converted.
+-   `-d --directory`: The path to the directory containing the *.csv files to be converted.
+-   `-m --mapping`: Defines used mapping type [empty].
 -   `-v --version`: Prints version and change log [info/change].
 
 The converter script will create a new JSON file for each CSV file specified in the mapping file. Or if folder is given in the arguments script will create one JSON file from all CSV files in the folder.
 The JSON file will contain an array of JSON objects, where each object corresponds to a row in the CSV file, grouped by the mapping INI files.
+
+### Project structure
+``` css
+-> main folder
+            |
+            csvToJSON_vX.XX.py
+            Readme.md
+            LICENSE
+            |__main
+            |       |__file_handler.py
+            |       |__mapping.py
+            |       |__procedss_file.py
+            |       |__process_folder.py
+            |       |__progress_bar.py
+            |       |__util_tools.py
+            |__mapping
+            |         |__hw_mapping.ini
+            |         |__sw_mapping.ini
+            |         |__license_mapping.ini
+            |__output #in this folder you will find the generated json files
+            |__images #images for README file              
+```
 
 ### Usage
 
@@ -39,6 +61,8 @@ To use the converter script, run the following command:
 python csvToJSON.py -f <single_file_path> 
 #or
 python csvToJSON.py -d <folder_path> 
+#or to create empty object schema
+python csvToJSON.py -d <folder_path> -m empty 
 ```
 
 ### Example
@@ -68,6 +92,7 @@ This would create single JSON files in the `/output/<date>/` directory: `hw_vers
 ### Processed files
 This script can only process '.csv' files into JIRA Asset JSON.
 The '.csv' - files should have following inner structrure:
+
 | File    | Structure                                                                  |
 | ------- | -------------------------------------------------------------------------- |
 | License | First line: 'Name','exp-date', data from second line on                    |
