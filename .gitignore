@@ -3,3 +3,5 @@
 /version_info_fref1/
 /test_folder/
 /sample_files/
+/main/.pytest_cache/
+/main/output/

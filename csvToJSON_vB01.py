@@ -18,14 +18,14 @@
 # imports
 import os
 import argparse
-
+import pytest
 import main.mapping
 from main import util_tools, process_file_b, process_folder_b
 
 # common variables
 opened_files = []
 __app_name__ = "CSV to JIRA Asset JSON"
-__version__ = "B0.1"
+__version__ = "B0.12"
 # change log
 change_log = [
 
@@ -51,6 +51,8 @@ change_log = [
     '0.43 ->  ability to create empty object schema #24/05/2023',
     '0.431 -> minor fix on arg parsing - TypeError: "NoneType" object is not subscriptable, and fixes for vm mapping file handling #08/06/2023',
     'B0.1 -> refactored json structure to be more readable by JIRA Asset tools -> single tree with all data in it #14/06/2023',
+    'B0.11 -> added "Responsible manager" and "JSON created" fields to JSON #28/06/2023',
+    'B0.12 -> added "local key" field to JSON #29/06/2023',
 
 ]
 
@@ -127,6 +129,7 @@ def arg_parser():
     else:
         if version_cmd[0] == 'info' or version_cmd[0] == 'change':
             print_version_change(version_cmd[0])
+
 
 if __name__ == '__main__':
     os.system('color')

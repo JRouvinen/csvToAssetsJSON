@@ -10,6 +10,20 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\test_folder\test_hw_version_info.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value=";" />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\test_folder\test_vm_inventory.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value=";" />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\version_info_fref1\version_info_fref1_extsrv.csv">
           <value>
             <Attribute>

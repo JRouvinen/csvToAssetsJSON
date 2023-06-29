@@ -4,7 +4,7 @@
 #                                                                        #
 # Author: Rouvinen Juha-Matti, Insta Advance                             #
 # Date: 10/04/2023                                                       #
-# Updated: 24/05/2023                                                    #
+# Updated: 29/06/2023                                                    #
 ############################# License ####################################
 #       Copyright [2023] [Insta Advance, Juha-Matti Rouvinen]            #
 #                                                                        #
@@ -15,8 +15,10 @@
 #       http://www.apache.org/licenses/LICENSE-2.0                       #
 ##########################################################################
 
+
 # imports
 from main import file_handler, util_tools, mapping, progress_bar
+import random
 
 # print colors
 cred = '\033[91m'
@@ -32,8 +34,12 @@ def process_file(*args):  # args: ['file' / 'dir'], [path], [mapping], [csv file
     # file path to process
     file = args[1]
     mapping_type = args[2]
-    # get mapping
-    mapping_list = mapping.get_mapping(None, None) #type, folder
+    if mapping_type == 'test':
+        # get mapping
+        mapping_list = mapping.get_mapping('test', None)  # type, folder
+    else:
+        # get mapping
+        mapping_list = mapping.get_mapping(None, None) #type, folder
     sw_mapping = mapping_list[0]
     sw_mapping_values = sw_mapping.values()
     hw_mapping = mapping_list[1]
@@ -57,6 +63,7 @@ def process_file(*args):  # args: ['file' / 'dir'], [path], [mapping], [csv file
     file_name_short = util_tools.clean_srt(file_name_short)
     file_name_short = file_name_short.replace('.', '')
     asset_json_dict = {file_name_short: []}
+    file_process_id = str(random.Random().randint(1, 1000000))
 
     # create sw and hw value lists into asset json
     lic_values_in_list = []
@@ -92,93 +99,63 @@ def process_file(*args):  # args: ['file' / 'dir'], [path], [mapping], [csv file
     old_upper_element = None
     upper_element = None
 
-    print(f'{(cgreen)}[#] Creating JSON from CSV{(cend)}')
+    print(f'{cgreen}[#] Creating JSON from CSV{cend}')
     csv_file_list = csv_file.splitlines()
     lines = len(csv_file_list)
     # loop through lines
+    # loop through lines
     for line in csv_file_list:
-        if lines_processed == 0:
-            pass
-        else:
+        if line != '':
             percents = round(lines_processed / lines * 100, 2)
             percents = str(percents)
             prog_bar = progress_bar.print_progress_bar(lines, lines_processed)  # total lines, current line
-            print(f'{(cgreen)}[-] Progress: |{prog_bar}| {percents}% Complete{(cend)}' + '\r', end='')
+            print(f'{cgreen}[-] Progress: |{prog_bar}| {percents}% Complete{cend}' + '\r', end='')
 
             unit = ''
             ver = ''
             count_semicolon = line.count(';')
             if count_semicolon == 0:
-                concat = ','
+                concate = ','
             else:
-                concat = ';'
-            # get all data pieces -----
+                concate = ';'
             # get component data
             old_component = component
-            component_loc = line.find(concat)
+            component_loc = line.find(concate)
             component = line[:component_loc]
             component = util_tools.clean_srt(component)
             # determine if component is license or sw/hw
             component_license = lic_values_in_list.count(component)
 
             # get unit data
-            unit_loc = line.rfind(concat)
+            unit_loc = line.rfind(concate)
             unit = line[component_loc + 1:unit_loc]
             unit = util_tools.clean_srt(unit)
             # get version data
             ver = line[unit_loc + 1:]
             ver = util_tools.clean_srt(ver)
-            if component_license != 0:  # processing of license data
+            # unit_dict = {'component': "", 'name': "", 'version': "", 'expiration date': "", 'expiration status': '','responsible manager': '', 'json created': ''}
+            unit_key = file_process_id + "_" + str(lines_processed)
+            unit_dict = {'import key': "", 'component': "", 'name': "", 'version': "", 'expiration date': "",
+                         'expiration status': '', 'responsible manager': '', 'json created': ''}
+
+            if component_license != 0 and mapping_type != 'empty':  # processing of license data
                 try:
                     upper_element = lic_main_value
                 except KeyError:
                     upper_element = None
+                # START ------ commented out in version 0.321 ------
 
                 if upper_element != None:
-                    unit_dict = {'name': component, 'exp_date': ver, 'expiration status': ''}
-                    lic_dict = {lic_main_value: unit_dict}
-                    index_num = values_in_list.index(upper_element)
-                    asset_json_dict[file_name_short].append(lic_dict)
+                    unit_dict['component'] = 'Lisenssi-' + upper_element
+                    unit_dict['version'] = ver
+                    unit_dict['name'] = component
+                    unit_dict['expiration date'] = ver
+                    asset_json_dict[file_name_short].append(unit_dict)
+                # ------ commented out in version 0.321 ------ END
 
-            else:  # processing of other sw and or hw data
-                unit_dict = {'name': unit, 'version': ver}
-                # check if component is already created
-                component_on_list = component_list.count(component)
-                if component_on_list == 0:
-                    component_dict = None
-                    component_list.append(component)
-                    component_dict = {component: []}
-                # add unit data to component
-                component_dict[component] = unit_dict
-                # check if element is on list
-                try:
-                    upper_element = sw_mapping[component]
-                except KeyError:
-                    upper_element = None
-                if upper_element is None:
-                    try:
-                        upper_element = hw_mapping[component]
-                    except KeyError:
-                        upper_element = None
-                elif upper_element is None:
-                    try:
-                        upper_element = lic_main_value
-                    except KeyError:
-                        upper_element = None
-                if old_upper_element == None:
-                    old_upper_element = upper_element
-                if upper_element != old_upper_element or lines_processed == 1:
-                    index_num = values_in_list.index(upper_element)
-                    asset_json_dict[file_name_short][index_num][upper_element].append(component_dict)
-                    old_upper_element = upper_element
-                    component_dict = {component: ''}
-                elif mapping_type == 'None':
-                    if component_dict != '':
-                        asset_json_dict[file_name_short][upper_element].append(component_dict)
+            else:  # processing of other sw and/or hw data
 
-        lines_processed += 1
-        if lines_processed == lines:
-            if component_dict != '' and component_dict is not None:
+                # find upper element
                 try:
                     upper_element = sw_mapping[component]
                 except KeyError:
@@ -189,19 +166,51 @@ def process_file(*args):  # args: ['file' / 'dir'], [path], [mapping], [csv file
                     except KeyError:
                         upper_element = None
                 if upper_element is None:
-                    try:
-                        upper_element = lic_main_value
-                    except KeyError:
-                        upper_element = None
-                index_num = values_in_list.index(upper_element)
-                asset_json_dict[file_name_short][index_num][upper_element].append(component_dict)
+                    print(f'{(cyellow)}[INPUT] Unit {unit} does not exist in mapping file, do you want to:{(cend)}')
+                    user_input = input(
+                        f'{(cyellow)}[INPUT] 1 - Manually add component for {unit}\n, 2 - Skip this unit {(cend)}')
+                    if user_input == '1':
+                        upper_element = input(
+                            f'{(cyellow)}[INPUT] Mapping component for {unit}: {(cend)}')
+                        # add all data to dict
+                        # unit_dict['component'] = upper_element + "-" + component
+                        # unit_dict['name'] = unit
+                        # tests for better handling vB0.12
+                        unit_dict['component'] = unit
+                        unit_dict['name'] = upper_element + "-" + component
+                        unit_dict['version'] = ver
+                        # unit_dict['expiration date'] = ''
+                        # unit_dict['expiration status'] = ''
+                        # append to dict
+                        asset_json_dict[file_name_short].append(unit_dict)
+                    else:
+                        pass
+                if upper_element is not None:
+                    # unit_dict['component'] = upper_element + "-" + component
+                    # unit_dict['name'] = unit
+                    # tests for better handling vB0.12
+                    unit_dict['name'] = unit
+                    unit_dict['component'] = upper_element
+                    unit_dict['import key'] = unit_key
+                    unit_dict['version'] = ver
+                    # unit_dict['expiration date'] = ''
+                    # unit_dict['expiration status'] = ''
+                    # append to dict
+                    asset_json_dict[file_name_short].append(unit_dict)
 
-        percents = 100
-        prog_bar = progress_bar.print_progress_bar(lines, lines_processed)  # total lines, current line
-        print(f'{(cgreen)}[-] Progress: |{prog_bar}| {percents}% Complete{(cend)}' + '\r', end='')
+            lines_processed += 1
 
+    lines_processed += 1
+    percents = 100
+    prog_bar = progress_bar.print_progress_bar(lines,
+                                               lines_processed)  # total lines, current line
+    print(f'{cgreen}[-] Progress: |{prog_bar}| {percents}% Complete{cend}' + '\r',
+          end='')
     # close file
     file_handler.file_handling('close', csv_file, True)
+    asset_json_dict[file_name_short].append(
+        {'name': 'Project_connector', 'Created': str(util_tools.get_date_time('date')),
+         'import key': file_process_id + "_" + str(util_tools.get_date_time('date'))})
     asset_json_dict_to_write = str(asset_json_dict)
     asset_json_dict_to_write = asset_json_dict_to_write.replace("'", '"')
     print('')

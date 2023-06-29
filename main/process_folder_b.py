@@ -4,7 +4,7 @@
 #                                                                        #
 # Author: Rouvinen Juha-Matti, Insta Advance                             #
 # Date: 10/04/2023                                                       #
-# Updated: 14/06/2023                                                    #
+# Updated: 29/06/2023                                                    #
 ############################# License ####################################
 #       Copyright [2023] [Insta Advance, Juha-Matti Rouvinen]            #
 #                                                                        #
@@ -15,6 +15,7 @@
 #       http://www.apache.org/licenses/LICENSE-2.0                       #
 ##########################################################################
 import fnmatch
+import random
 
 #imports
 from main import util_tools, file_handler, progress_bar, mapping
@@ -44,8 +45,12 @@ def process_folder(*args): # args: ['file' / 'dir'], [path], [mapping], [csv fil
     mapping_type = args[2]
     csv_files = args[3]
     file_name_short = None
-    # get mapping
-    mapping_list = mapping.get_mapping(None, None)
+    if mapping_type == 'test':
+        # get mapping
+        mapping_list = mapping.get_mapping('test', None)  # type, folder
+    else:
+        # get mapping
+        mapping_list = mapping.get_mapping(None, None)  # type, folder
     sw_mapping = mapping_list[0]
     sw_mapping_values = sw_mapping.values()
     hw_mapping = mapping_list[1]
@@ -67,7 +72,7 @@ def process_folder(*args): # args: ['file' / 'dir'], [path], [mapping], [csv fil
         vm_mapping = mapping.get_mapping('vm', folder+'/'+vm_inv_file_name)
         vm_mapping_values = vm_mapping[0].values()
         #commented out on version 0.41 -> naming caused errors in JIRA Assets
-        #name = vm_mapping[1]
+        name = vm_mapping[1]
         vm_mapping = vm_mapping[0]
         asset_json_dict = None
         asset_json_dict = {name: []}
@@ -152,6 +157,7 @@ def process_folder(*args): # args: ['file' / 'dir'], [path], [mapping], [csv fil
                 if filename.endswith('.csv'):
                     if processed_csv_files > 0:
                         print()
+                    
                     file_to_read = folder + '/' + filename
                     # open file
                     csv_file = file_handler.file_handling('open', file_to_read, True)
@@ -161,6 +167,7 @@ def process_folder(*args): # args: ['file' / 'dir'], [path], [mapping], [csv fil
                     # file_name_short = clean_srt(file_name_short)
                     # file_name_short = file_name_short.replace('.', '')
                     file_name_short = name
+                    file_process_id = str(random.Random().randint(1,1000000))
                     # create sw and hw value lists into asset json
                     component = None
                     component_list = []
@@ -204,7 +211,9 @@ def process_folder(*args): # args: ['file' / 'dir'], [path], [mapping], [csv fil
                             # get version data
                             ver = line[unit_loc + 1:]
                             ver = util_tools.clean_srt(ver)
-                            unit_dict = {'component': "", 'name': "", 'version': "", 'exp_date': "", 'expiration status': ''}
+                            #unit_dict = {'component': "", 'name': "", 'version': "", 'expiration date': "", 'expiration status': '','responsible manager': '', 'json created': ''}
+                            unit_key = file_process_id+"_"+str(lines_processed)
+                            unit_dict = {'import key': "",'component': "", 'name': "", 'version': "", 'expiration date': "", 'expiration status': '','responsible manager': '', 'json created': ''}
 
                             if component_license != 0 and mapping_type != 'empty':  # processing of license data
                                 try:
@@ -217,7 +226,7 @@ def process_folder(*args): # args: ['file' / 'dir'], [path], [mapping], [csv fil
                                     unit_dict['component'] = 'Lisenssi-'+upper_element
                                     unit_dict['version'] = ver
                                     unit_dict['name'] = component
-                                    unit_dict['exp_date'] = ver
+                                    unit_dict['expiration date'] = ver
                                     asset_json_dict[file_name_short].append(unit_dict)
                                 # ------ commented out in version 0.321 ------ END
 
@@ -239,7 +248,7 @@ def process_folder(*args): # args: ['file' / 'dir'], [path], [mapping], [csv fil
                                         upper_element = hw_mapping[component]
                                     except KeyError:
                                         upper_element = None
-                                if upper_element is None and unit != '':
+                                if upper_element is None:
                                     print(f'{(cyellow)}[INPUT] Unit {unit} does not exist in mapping file, do you want to:{(cend)}')
                                     user_input = input(
                                         f'{(cyellow)}[INPUT] 1 - Manually add component for {unit}\n, 2 - Skip this unit {(cend)}')
@@ -247,38 +256,45 @@ def process_folder(*args): # args: ['file' / 'dir'], [path], [mapping], [csv fil
                                         upper_element = input(
                                         f'{(cyellow)}[INPUT] Mapping component for {unit}: {(cend)}')
                                         #add all data to dict
-                                        unit_dict['component'] = upper_element + "-" + component
-                                        unit_dict['name'] = unit
+                                        #unit_dict['component'] = upper_element + "-" + component
+                                        #unit_dict['name'] = unit
+                                        # tests for better handling vB0.12
+                                        unit_dict['component'] = unit
+                                        unit_dict['name'] = upper_element + "-" + component
                                         unit_dict['version'] = ver
-                                        #unit_dict['exp_date'] = ''
+                                        #unit_dict['expiration date'] = ''
                                         #unit_dict['expiration status'] = ''
                                         # append to dict
                                         asset_json_dict[file_name_short].append(unit_dict)
                                     else:
                                         pass
-                                if upper_element is None and unit != '':
-                                    # add all data to dict
-                                    unit_dict['component'] = upper_element+"-"+component
+                                if upper_element is not None:
+                                    #unit_dict['component'] = upper_element + "-" + component
+                                    #unit_dict['name'] = unit
+                                    # tests for better handling vB0.12
                                     unit_dict['name'] = unit
+                                    unit_dict['component'] = upper_element
+                                    unit_dict['import key'] = unit_key
                                     unit_dict['version'] = ver
-                                    # unit_dict['exp_date'] = ''
+                                    # unit_dict['expiration date'] = ''
                                     # unit_dict['expiration status'] = ''
                                     # append to dict
                                     asset_json_dict[file_name_short].append(unit_dict)
 
 
                             lines_processed += 1
-                            if lines_processed > lines:
 
-                                percents = 100
-                                prog_bar = progress_bar.print_progress_bar(lines, lines_processed)  # total lines, current line
-                                print(f'{(cgreen)}[-] Progress: |{prog_bar}| {percents}% Complete{(cend)}' + '\r', end='')
-
+                    lines_processed += 1
+                    percents = 100
+                    prog_bar = progress_bar.print_progress_bar(lines,
+                                                               lines_processed)  # total lines, current line
+                    print(f'{(cgreen)}[-] Progress: |{prog_bar}| {percents}% Complete{(cend)}' + '\r',
+                          end='')
                     # close file
                     file_handler.file_handling('close', csv_file, True)
             processed_csv_files += 1
             if processed_csv_files == csv_files:
-                asset_json_dict[file_name_short].append({'name': 'Project_connector', 'Created': str(util_tools.get_date_time('date'))})
+                asset_json_dict[file_name_short].append({'name': 'Project_connector', 'Created': str(util_tools.get_date_time('date')),'import key': file_process_id+"_"+str(util_tools.get_date_time('date'))})
                 asset_json_dict_to_write = str(asset_json_dict)
                 asset_json_dict_to_write = asset_json_dict_to_write.replace("'", '"')
                 #new_json_to_write = json.dumps(asset_json_dict_to_write)

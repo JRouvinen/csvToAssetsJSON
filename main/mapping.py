@@ -4,7 +4,7 @@
 #                                                                        #
 # Author: Rouvinen Juha-Matti, Insta Advance                             #
 # Date: 10/04/2023                                                       #
-# Updated: 24/05/2023                                                    #
+# Updated: 29/06/2023                                                    #
 ############################# License ####################################
 #       Copyright [2023] [Insta Advance, Juha-Matti Rouvinen]            #
 #                                                                        #
@@ -19,6 +19,26 @@ from main import file_handler
 
 #mapping parser
 def get_mapping(type, folder):
+    def create_dict(map_file):
+        unit = ""
+        component = ""
+        mapping_dict = {}
+        for line in map_file:
+            if line.startswith('[') is True:
+                component = ""
+                component = line.strip()
+                component = component.replace('[', '')
+                component = component.replace(']', '')
+
+            elif line.startswith('Unit') is True:
+                unit_start = line.find('=')
+                unit = line[unit_start + 2:]
+                unit = unit.strip()
+
+            if unit != '':
+                mapping_dict[unit] = component
+                unit = ""
+        return mapping_dict
     if type == 'vm':
         vm_file = file_handler.file_handling('open', folder, True)
         vm_mapping = vm_file.readlines()
@@ -41,28 +61,24 @@ def get_mapping(type, folder):
             unit_data = values[0]
             vm_mapping_dict[unit_data] = vm_data1 + '-' + vm_data2
         return vm_mapping_dict, vm_mapping_name
+    elif type == 'test':
+        # create test mapping
+        test_mapping = file_handler.file_handling('open', '/mapping/test_mapping.ini', False)
+        test_mapping = test_mapping.read()
+        test_mapping = test_mapping.splitlines()
+        if test_mapping[0].startswith('#') is True:
+            test_mapping = test_mapping[4:]
+        test_mapping_dic = create_dict(test_mapping)
+        # create license mapping
+        test_lic_mapping = file_handler.file_handling('open', '/mapping/test_license_mapping.ini', False)
+        test_lic_mapping = test_lic_mapping.read()
+        test_lic_mapping = test_lic_mapping.splitlines()
+        if test_lic_mapping[0].startswith('#') is True:
+            test_lic_mapping = test_lic_mapping[4:]
+        test_lic_mapping_dic = create_dict(test_lic_mapping)
+        return test_mapping_dic, test_mapping_dic, test_lic_mapping_dic
 
     else:
-        def create_dict(map_file):
-            unit = ""
-            component = ""
-            mapping_dict = {}
-            for line in map_file:
-                if line.startswith('[') is True:
-                    component = ""
-                    component = line.strip()
-                    component = component.replace('[', '')
-                    component = component.replace(']', '')
-
-                elif line.startswith('Unit') is True:
-                    unit_start = line.find('=')
-                    unit = line[unit_start + 2:]
-                    unit = unit.strip()
-
-                if unit != '':
-                    mapping_dict[unit] = component
-                    unit = ""
-            return mapping_dict
         #create sw mapping
         sw_mapping = file_handler.file_handling('open', '/mapping/sw_mapping.ini', False)
         sw_mapping = sw_mapping.read()
