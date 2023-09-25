@@ -17,12 +17,12 @@
 import fnmatch
 import random
 
-#imports
+# imports
 from main import util_tools, file_handler, progress_bar, mapping
 import os
 import json
 
-#print colors
+# print colors
 cred = '\033[91m'
 cgreen = '\033[92m'
 cyellow = '\033[93m'
@@ -32,7 +32,7 @@ cend = '\033[0m'
 chead = '\033[42m'
 
 
-def process_folder(*args): # args: ['file' / 'dir'], [path], [mapping], [csv files]
+def process_folder(*args):  # args: ['file' / 'dir'], [path], [mapping], [csv files], [env name]
     folder = args[1]
     number_of_csv_files = int(args[3])
     directory = os.getcwd()
@@ -40,10 +40,11 @@ def process_folder(*args): # args: ['file' / 'dir'], [path], [mapping], [csv fil
     folder_dir = directory + folder
     processed_csv_files = 0
     name = str(util_tools.get_date_time('date'))
-    #updated on version 0.42
+    # updated on version 0.42
     asset_json_dict = {name: []}
     mapping_type = args[2]
     csv_files = args[3]
+    env_name = args[4]
     file_name_short = None
     if mapping_type == 'test':
         # get mapping
@@ -55,7 +56,7 @@ def process_folder(*args): # args: ['file' / 'dir'], [path], [mapping], [csv fil
     sw_mapping_values = sw_mapping.values()
     hw_mapping = mapping_list[1]
     hw_mapping_values = hw_mapping.values()
-    #check if vm_inventory file exists
+    # check if vm_inventory file exists
     pattern = 'vm_inventory*.csv'
     files_in_folder = os.listdir(folder_dir)
     vm_inventory_exist = 0
@@ -67,16 +68,16 @@ def process_folder(*args): # args: ['file' / 'dir'], [path], [mapping], [csv fil
         if vm_inventory_exist > 1:
             print(f'{(cred)}[ERROR] Several vm_inventory files found --> stop execution {(cend)}' + '\r', end='')
             exit()
-        #if true get json name and hw mapping from there else use hw mapping
+        # if true get json name and hw mapping from there else use hw mapping
     if vm_inventory_exist == 1:
-        vm_mapping = mapping.get_mapping('vm', folder+'/'+vm_inv_file_name)
+        vm_mapping = mapping.get_mapping('vm', folder + '/' + vm_inv_file_name)
         vm_mapping_values = vm_mapping[0].values()
-        #commented out on version 0.41 -> naming caused errors in JIRA Assets
+        # commented out on version 0.41 -> naming caused errors in JIRA Assets
         name = vm_mapping[1]
         vm_mapping = vm_mapping[0]
         asset_json_dict = None
         asset_json_dict = {name: []}
-    #get license mapping
+    # get license mapping
     lic_mapping = mapping_list[2]
     lic_main_values = lic_mapping.values()
     lic_main_value = None
@@ -91,10 +92,9 @@ def process_folder(*args): # args: ['file' / 'dir'], [path], [mapping], [csv fil
         if value_in_list == 0:
             sw_mapping_dict = {x: []}
             values_in_list.append(x)
-            #changed on ver 0.41
-            #asset_json_dict[name].append(sw_mapping_dict)
-            #asset_json_dict[name] = (sw_mapping_dict)
-
+            # changed on ver 0.41
+            # asset_json_dict[name].append(sw_mapping_dict)
+            # asset_json_dict[name] = (sw_mapping_dict)
 
     if vm_inventory_exist == 1:
         for x in vm_mapping_values:
@@ -104,9 +104,8 @@ def process_folder(*args): # args: ['file' / 'dir'], [path], [mapping], [csv fil
                 hw_mapping_dict = {x: []}
                 values_in_list.append(x)
                 # changed on ver 0.41
-                #asset_json_dict[name].append(hw_mapping_dict)
-                #asset_json_dict[name] = (hw_mapping_dict)
-
+                # asset_json_dict[name].append(hw_mapping_dict)
+                # asset_json_dict[name] = (hw_mapping_dict)
 
     for x in hw_mapping_values:
         value_in_list = values_in_list.count(x)
@@ -114,8 +113,8 @@ def process_folder(*args): # args: ['file' / 'dir'], [path], [mapping], [csv fil
             hw_mapping_dict = {x: []}
             values_in_list.append(x)
             # changed on ver 0.41
-            #asset_json_dict[name].append(hw_mapping_dict)
-            #asset_json_dict[name] = (hw_mapping_dict)
+            # asset_json_dict[name].append(hw_mapping_dict)
+            # asset_json_dict[name] = (hw_mapping_dict)
 
     for x in lic_main_values:
         if lic_main_value is None:
@@ -137,7 +136,7 @@ def process_folder(*args): # args: ['file' / 'dir'], [path], [mapping], [csv fil
     for filename in os.listdir(folder_dir):
         f = os.path.join(folder_dir, filename)
         if os.path.isfile(f):
-            #changed on v0.431
+            # changed on v0.431
             # check if vm_inventory file exists
             pattern = 'vm_inventory*.csv'
             files_in_folder = os.listdir(folder_dir)
@@ -149,7 +148,8 @@ def process_folder(*args): # args: ['file' / 'dir'], [path], [mapping], [csv fil
                 if processed_csv_files > 0:
                     print()
                 curr_csv_file += 1
-                print(f'{cgreen}[#] File {curr_csv_file}/{number_of_csv_files} - Mapping "{filename}" found -> using mapping from that file {cend}')
+                print(
+                    f'{cgreen}[#] File {curr_csv_file}/{number_of_csv_files} - Mapping "{filename}" found -> using mapping from that file {cend}')
                 vm_inventory_file = 0
                 pass
 
@@ -157,7 +157,6 @@ def process_folder(*args): # args: ['file' / 'dir'], [path], [mapping], [csv fil
                 if filename.endswith('.csv'):
                     if processed_csv_files > 0:
                         print()
-                    
                     file_to_read = folder + '/' + filename
                     # open file
                     csv_file = file_handler.file_handling('open', file_to_read, True)
@@ -167,7 +166,7 @@ def process_folder(*args): # args: ['file' / 'dir'], [path], [mapping], [csv fil
                     # file_name_short = clean_srt(file_name_short)
                     # file_name_short = file_name_short.replace('.', '')
                     file_name_short = name
-                    file_process_id = str(random.Random().randint(1,1000000))
+                    file_process_id = env_name + '_' + str(random.Random().randint(1, 1000000))
                     # create sw and hw value lists into asset json
                     component = None
                     component_list = []
@@ -178,7 +177,8 @@ def process_folder(*args): # args: ['file' / 'dir'], [path], [mapping], [csv fil
                     curr_csv_file = processed_csv_files + 1
                     if curr_csv_file > number_of_csv_files:
                         curr_csv_file = number_of_csv_files
-                    print(f'{cgreen}[#] File {curr_csv_file}/{number_of_csv_files} - Appending data from "{filename}" to JSON {cend}')
+                    print(
+                        f'{cgreen}[#] File {curr_csv_file}/{number_of_csv_files} - Appending data from "{filename}" to JSON {cend}')
                     csv_file_list = csv_file.splitlines()
                     lines = len(csv_file_list)
                     # loop through lines
@@ -186,7 +186,8 @@ def process_folder(*args): # args: ['file' / 'dir'], [path], [mapping], [csv fil
                         if line != '':
                             percents = round(lines_processed / lines * 100, 2)
                             percents = str(percents)
-                            prog_bar = progress_bar.print_progress_bar(lines, lines_processed)  # total lines, current line
+                            prog_bar = progress_bar.print_progress_bar(lines,
+                                                                       lines_processed)  # total lines, current line
                             print(f'{cgreen}[-] Progress: |{prog_bar}| {percents}% Complete{cend}' + '\r', end='')
 
                             unit = ''
@@ -211,9 +212,14 @@ def process_folder(*args): # args: ['file' / 'dir'], [path], [mapping], [csv fil
                             # get version data
                             ver = line[unit_loc + 1:]
                             ver = util_tools.clean_srt(ver)
-                            #unit_dict = {'component': "", 'name': "", 'version': "", 'expiration date': "", 'expiration status': '','responsible manager': '', 'json created': ''}
-                            unit_key = file_process_id+"_"+str(lines_processed)
-                            unit_dict = {'import key': "",'component': "", 'name': "", 'version': "", 'expiration date': "", 'expiration status': '','responsible manager': '', 'json created': ''}
+                            # unit_dict = {'component': "", 'name': "", 'version': "", 'expiration date': "", 'expiration status': '','responsible manager': '', 'json created': ''}
+
+                            # Updated on version B0.13
+                            # unit_key = file_process_id+"_"+str(lines_processed)
+                            unit_key = env_name
+                            unit_dict = {'import key': "", 'component': "", 'name': "", 'version': "",
+                                         'expiration date': "", 'expiration status': '', 'responsible manager': '',
+                                         'json created': ''}
 
                             if component_license != 0 and mapping_type != 'empty':  # processing of license data
                                 try:
@@ -223,7 +229,7 @@ def process_folder(*args): # args: ['file' / 'dir'], [path], [mapping], [csv fil
                                 # START ------ commented out in version 0.321 ------
 
                                 if upper_element != None:
-                                    unit_dict['component'] = 'Lisenssi-'+upper_element
+                                    unit_dict['component'] = 'Lisenssi-' + upper_element
                                     unit_dict['version'] = ver
                                     unit_dict['name'] = component
                                     unit_dict['expiration date'] = ver
@@ -232,7 +238,7 @@ def process_folder(*args): # args: ['file' / 'dir'], [path], [mapping], [csv fil
 
                             else:  # processing of other sw and/or hw data
 
-                                #find upper element
+                                # find upper element
                                 try:
                                     upper_element = sw_mapping[component]
                                 except KeyError:
@@ -249,38 +255,39 @@ def process_folder(*args): # args: ['file' / 'dir'], [path], [mapping], [csv fil
                                     except KeyError:
                                         upper_element = None
                                 if upper_element is None:
-                                    print(f'{(cyellow)}[INPUT] Unit {unit} does not exist in mapping file, do you want to:{(cend)}')
+                                    print(
+                                        f'{cyellow}[INPUT] Unit {unit} does not exist in mapping file, do you want to:{cend}')
                                     user_input = input(
-                                        f'{(cyellow)}[INPUT] 1 - Manually add component for {unit}\n, 2 - Skip this unit {(cend)}')
+                                        f'{cyellow}[INPUT] 1 - Manually add component for {unit}\n, 2 - Skip this unit {cend}')
                                     if user_input == '1':
                                         upper_element = input(
-                                        f'{(cyellow)}[INPUT] Mapping component for {unit}: {(cend)}')
-                                        #add all data to dict
-                                        #unit_dict['component'] = upper_element + "-" + component
-                                        #unit_dict['name'] = unit
+                                            f'{(cyellow)}[INPUT] Mapping component for {unit}: {(cend)}')
+                                        # add all data to dict
+                                        # unit_dict['component'] = upper_element + "-" + component
+                                        # unit_dict['name'] = unit
                                         # tests for better handling vB0.12
                                         unit_dict['component'] = unit
                                         unit_dict['name'] = upper_element + "-" + component
                                         unit_dict['version'] = ver
-                                        #unit_dict['expiration date'] = ''
-                                        #unit_dict['expiration status'] = ''
+                                        # unit_dict['expiration date'] = ''
+                                        # unit_dict['expiration status'] = ''
                                         # append to dict
                                         asset_json_dict[file_name_short].append(unit_dict)
                                     else:
                                         pass
                                 if upper_element is not None:
-                                    #unit_dict['component'] = upper_element + "-" + component
-                                    #unit_dict['name'] = unit
+                                    # unit_dict['component'] = upper_element + "-" + component
+                                    # unit_dict['name'] = unit
                                     # tests for better handling vB0.12
                                     unit_dict['name'] = unit
                                     unit_dict['component'] = upper_element
-                                    unit_dict['import key'] = unit_key
+                                    # Updated on version B0.13
+                                    unit_dict['import key'] = unit_key + '_' + upper_element + '_' + unit
                                     unit_dict['version'] = ver
                                     # unit_dict['expiration date'] = ''
                                     # unit_dict['expiration status'] = ''
                                     # append to dict
                                     asset_json_dict[file_name_short].append(unit_dict)
-
 
                             lines_processed += 1
 
@@ -288,16 +295,18 @@ def process_folder(*args): # args: ['file' / 'dir'], [path], [mapping], [csv fil
                     percents = 100
                     prog_bar = progress_bar.print_progress_bar(lines,
                                                                lines_processed)  # total lines, current line
-                    print(f'{(cgreen)}[-] Progress: |{prog_bar}| {percents}% Complete{(cend)}' + '\r',
+                    print(f'{cgreen}[-] Progress: |{prog_bar}| {percents}% Complete{cend}' + '\r',
                           end='')
                     # close file
                     file_handler.file_handling('close', csv_file, True)
             processed_csv_files += 1
             if processed_csv_files == csv_files:
-                asset_json_dict[file_name_short].append({'name': 'Project_connector', 'Created': str(util_tools.get_date_time('date')),'import key': file_process_id+"_"+str(util_tools.get_date_time('date'))})
+                asset_json_dict[file_name_short].append(
+                    {'name': 'Project_connector', 'Created': str(util_tools.get_date_time('date')),
+                     'import key': file_process_id + "_" + str(util_tools.get_date_time('date'))})
                 asset_json_dict_to_write = str(asset_json_dict)
                 asset_json_dict_to_write = asset_json_dict_to_write.replace("'", '"')
-                #new_json_to_write = json.dumps(asset_json_dict_to_write)
+                # new_json_to_write = json.dumps(asset_json_dict_to_write)
                 print('')
                 # write file
                 file_handler.file_handling('write', file_name_short, asset_json_dict_to_write, True)

@@ -18,14 +18,13 @@
 # imports
 import os
 import argparse
-import pytest
 import main.mapping
 from main import util_tools, process_file_b, process_folder_b
 
 # common variables
 opened_files = []
 __app_name__ = "CSV to JIRA Asset JSON"
-__version__ = "B0.12"
+__version__ = "B0.13"
 # change log
 change_log = [
 
@@ -53,6 +52,7 @@ change_log = [
     'B0.1 -> refactored json structure to be more readable by JIRA Asset tools -> single tree with all data in it #14/06/2023',
     'B0.11 -> added "Responsible manager" and "JSON created" fields to JSON #28/06/2023',
     'B0.12 -> added "local key" field to JSON #29/06/2023',
+    'B0.13 -> changed method how import key is created #25/09/2023',
 
 ]
 
@@ -67,19 +67,20 @@ chead = '\033[42m'
 
 
 # create json from csv
-def create_asset_json(*args):  # args: ['file' / 'dir'], [path], [mapping], [csv files]
+def create_asset_json(*args):  # args: ['file' / 'dir'], [path], [mapping], [csv files], [env name]
 
     file_folder = args[0]
     path = args[1]
     mapping = args[2]
     csv_file = args[3]
+    env_name = args[4]
     # process single file
     if file_folder == 'file':
         result = main.process_file_b.process_file(file_folder, path, mapping, csv_file)
 
     # process folder
     else:
-        result = process_folder_b.process_folder(file_folder, path, mapping, csv_file)
+        result = process_folder_b.process_folder(file_folder, path, mapping, csv_file, env_name)
     print(f'{cgreen}----------------------------------------------------{cend}')
     print(f'{cgreen}[#] {result}!{cend}')
 
@@ -176,4 +177,10 @@ if __name__ == '__main__':
         exit()
     else:
         print(f'{cgreen}[->] {csv_files} file(s) found from folder.{cend}')
-    create_asset_json(file, file_name, mapping, csv_files)  # args: ['file' / 'dir'], [path], [mapping], [csv files]
+        name_check = util_tools.file_names(file_name)
+        if name_check[0]:
+            print(f"{cyellow} [#] All filenames in folder don't match! {cend}")
+            name_check[1] = ""
+        else:
+            print(f'{cgreen}[->] Filenames in folder match {cend}')
+    create_asset_json(file, file_name, mapping, csv_files, name_check[1])  # args: ['file' / 'dir'], [path], [mapping], [csv files], [env name]

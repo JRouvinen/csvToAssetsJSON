@@ -4,7 +4,7 @@
 #                                                                        #
 # Author: Rouvinen Juha-Matti, Insta Advance                             #
 # Date: 10/04/2023                                                       #
-# Updated: 24/05/2023                                                    #
+# Updated: 25/09/2023                                                    #
 ############################# License ####################################
 #       Copyright [2023] [Insta Advance, Juha-Matti Rouvinen]            #
 #                                                                        #
@@ -92,5 +92,29 @@ def check_file_or_folder_exists(file,type):
                 pass
 
             return csv_files
+
+def file_names(path):
+    list_of_names = []
+    name_mix_match = False
+    directory = os.getcwd()
+    directory = directory.replace('\\', '/')
+    folder_dir = directory + path
+    for file in os.listdir(folder_dir):
+        if file.endswith('.csv'):
+            split_name = file.split('_')
+            env_name = split_name[2]
+            check_dot = env_name.find('.')
+            if check_dot != -1:
+                env_name = env_name[:check_dot]
+            list_of_names.append(env_name)
+
+    first_name = list_of_names[0]
+    for name in list_of_names:
+        if first_name != name:
+            name_mix_match = True
+
+    return name_mix_match, first_name
+
+
 
 
