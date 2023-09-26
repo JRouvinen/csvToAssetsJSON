@@ -18,14 +18,17 @@
 # imports
 import os
 import argparse
-import pytest
+try:
+    import pytest
+except:
+    pass
 import main.mapping
 from main import util_tools, process_file_b, process_folder_b
 
 # common variables
 opened_files = []
 __app_name__ = "CSV to JIRA Asset JSON"
-__version__ = "B0.12"
+__version__ = "B0.121"
 # change log
 change_log = [
 
@@ -53,6 +56,7 @@ change_log = [
     'B0.1 -> refactored json structure to be more readable by JIRA Asset tools -> single tree with all data in it #14/06/2023',
     'B0.11 -> added "Responsible manager" and "JSON created" fields to JSON #28/06/2023',
     'B0.12 -> added "local key" field to JSON #29/06/2023',
+    'B0.121 -> bug fix -> no unit data is shown in json #30/06/2023',
 
 ]
 

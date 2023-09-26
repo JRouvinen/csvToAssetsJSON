@@ -4,7 +4,7 @@
 #                                                                        #
 # Author: Rouvinen Juha-Matti, Insta Advance                             #
 # Date: 10/04/2023                                                       #
-# Updated: 29/06/2023                                                    #
+# Updated: 30/06/2023                                                    #
 ############################# License ####################################
 #       Copyright [2023] [Insta Advance, Juha-Matti Rouvinen]            #
 #                                                                        #
@@ -57,7 +57,12 @@ def process_folder(*args): # args: ['file' / 'dir'], [path], [mapping], [csv fil
     hw_mapping_values = hw_mapping.values()
     #check if vm_inventory file exists
     pattern = 'vm_inventory*.csv'
-    files_in_folder = os.listdir(folder_dir)
+    if mapping_type == 'test':
+        test_folder = directory.rfind('/')
+        test_folder = directory[:test_folder]+folder
+        files_in_folder = os.listdir(test_folder)
+    else:
+        files_in_folder = os.listdir(folder_dir)
     vm_inventory_exist = 0
     vm_inv_file_name = None
     for fil_name in files_in_folder:
@@ -133,8 +138,12 @@ def process_folder(*args): # args: ['file' / 'dir'], [path], [mapping], [csv fil
 
     # ------ commented out in version 0.321 ------ END
     # loop through all the files in the folder
-
-    for filename in os.listdir(folder_dir):
+    if mapping_type == 'test':
+        file_folder = directory.rfind('/')
+        file_folder = directory[:file_folder]+folder
+    else:
+        file_folder = os.listdir(folder_dir)
+    for filename in file_folder:
         f = os.path.join(folder_dir, filename)
         if os.path.isfile(f):
             #changed on v0.431
@@ -189,7 +198,7 @@ def process_folder(*args): # args: ['file' / 'dir'], [path], [mapping], [csv fil
                             prog_bar = progress_bar.print_progress_bar(lines, lines_processed)  # total lines, current line
                             print(f'{cgreen}[-] Progress: |{prog_bar}| {percents}% Complete{cend}' + '\r', end='')
 
-                            unit = ''
+                            software = ''
                             ver = ''
                             count_semicolon = line.count(';')
                             if count_semicolon == 0:
@@ -204,16 +213,16 @@ def process_folder(*args): # args: ['file' / 'dir'], [path], [mapping], [csv fil
                             # determine if component is license or sw/hw
                             component_license = lic_values_in_list.count(component)
 
-                            # get unit data
+                            # get software data
                             unit_loc = line.rfind(concate)
-                            unit = line[component_loc + 1:unit_loc]
-                            unit = util_tools.clean_srt(unit)
+                            software = line[component_loc + 1:unit_loc]
+                            software = util_tools.clean_srt(software)
                             # get version data
                             ver = line[unit_loc + 1:]
                             ver = util_tools.clean_srt(ver)
                             #unit_dict = {'component': "", 'name': "", 'version': "", 'expiration date': "", 'expiration status': '','responsible manager': '', 'json created': ''}
                             unit_key = file_process_id+"_"+str(lines_processed)
-                            unit_dict = {'import key': "",'component': "", 'name': "", 'version': "", 'expiration date': "", 'expiration status': '','responsible manager': '', 'json created': ''}
+                            unit_dict = {'import key': "",'component': "", 'unit': "",'name': "", 'version': "", 'expiration date': "", 'expiration status': '','responsible manager': '', 'json created': ''}
 
                             if component_license != 0 and mapping_type != 'empty':  # processing of license data
                                 try:
@@ -249,18 +258,19 @@ def process_folder(*args): # args: ['file' / 'dir'], [path], [mapping], [csv fil
                                     except KeyError:
                                         upper_element = None
                                 if upper_element is None:
-                                    print(f'{(cyellow)}[INPUT] Unit {unit} does not exist in mapping file, do you want to:{(cend)}')
+                                    print(f'{(cyellow)}[INPUT] Unit {software} does not exist in mapping file, do you want to:{(cend)}')
                                     user_input = input(
-                                        f'{(cyellow)}[INPUT] 1 - Manually add component for {unit}\n, 2 - Skip this unit {(cend)}')
+                                        f'{(cyellow)}[INPUT] 1 - Manually add component for {software}\n, 2 - Skip this software {(cend)}')
                                     if user_input == '1':
                                         upper_element = input(
-                                        f'{(cyellow)}[INPUT] Mapping component for {unit}: {(cend)}')
+                                        f'{(cyellow)}[INPUT] Mapping component for {software}: {(cend)}')
                                         #add all data to dict
                                         #unit_dict['component'] = upper_element + "-" + component
-                                        #unit_dict['name'] = unit
+                                        #unit_dict['name'] = software
                                         # tests for better handling vB0.12
-                                        unit_dict['component'] = unit
-                                        unit_dict['name'] = upper_element + "-" + component
+                                        unit_dict['component'] = upper_element
+                                        unit_dict['unit'] = component
+                                        unit_dict['name'] = software
                                         unit_dict['version'] = ver
                                         #unit_dict['expiration date'] = ''
                                         #unit_dict['expiration status'] = ''
@@ -272,7 +282,8 @@ def process_folder(*args): # args: ['file' / 'dir'], [path], [mapping], [csv fil
                                     #unit_dict['component'] = upper_element + "-" + component
                                     #unit_dict['name'] = unit
                                     # tests for better handling vB0.12
-                                    unit_dict['name'] = unit
+                                    unit_dict['name'] = software
+                                    unit_dict['unit'] = component
                                     unit_dict['component'] = upper_element
                                     unit_dict['import key'] = unit_key
                                     unit_dict['version'] = ver
@@ -302,3 +313,66 @@ def process_folder(*args): # args: ['file' / 'dir'], [path], [mapping], [csv fil
                 # write file
                 file_handler.file_handling('write', file_name_short, asset_json_dict_to_write, True)
                 return 'Done'
+
+
+# Generated by CodiumAI
+
+# Dependencies:
+# pip install pytest-mock
+import pytest
+
+"""
+Code Analysis
+
+Objective:
+The function 'process_folder' aims to process a folder containing CSV files, extract data from them, and create a JSON file with the extracted data. The function also uses mapping files to map the extracted data to specific components and licenses.
+
+Inputs:
+- *args: a variable number of arguments, including the type of input ('file' or 'dir'), the path to the folder, the mapping type, and the number of CSV files to process.
+
+Flow:
+1. The function receives the input arguments and initializes some variables.
+2. The function checks if there is a mapping file for virtual machines and extracts the mapping values.
+3. The function checks if there is a license mapping file and extracts the mapping values.
+4. The function iterates over the CSV files in the folder and extracts data from them.
+5. The function uses the mapping files to map the extracted data to specific components and licenses.
+6. The function creates a JSON file with the extracted data.
+
+Outputs:
+- 'Done': if the function completes successfully.
+
+Additional aspects:
+- The function uses several utility functions from other modules.
+- The function includes error handling for cases where there are multiple VM inventory files in the folder or a component is not found in the mapping files.
+- The function includes a progress bar to show the progress of the data extraction process.
+"""
+class TestProcessFolder:
+    #  Tests that the function can process a folder with valid csv files and mapping
+    def test_valid_csv_files_and_mapping(self, mocker):
+        mocker.patch('builtins.input', return_value='2')
+        assert process_folder('folder', '/test_folder/', 'test', 1) == 'Done'
+
+    #  Tests that the function can process a folder with valid csv files and empty mapping
+    def test_valid_csv_files_and_empty_mapping(self, mocker):
+        mocker.patch('builtins.input', return_value='2')
+        assert process_folder('file', 'test_data/valid_csv_files_and_empty_mapping', 'empty', 1) == 'Done'
+
+    #  Tests that the function can process a folder with valid csv files and test mapping
+    def test_valid_csv_files_and_test_mapping(self, mocker):
+        mocker.patch('builtins.input', return_value='2')
+        assert process_folder('file', 'test_data/valid_csv_files_and_test_mapping', 'test', 1) == 'Done'
+
+    #  Tests that the function can process a folder with valid csv files and vm_inventory file
+    def test_valid_csv_files_and_vm_inventory_file(self, mocker):
+        mocker.patch('builtins.input', return_value='2')
+        assert process_folder('file', 'test_data/valid_csv_files_and_vm_inventory_file', None, 1) == 'Done'
+
+    #  Tests that the function can handle a folder with no csv files
+    def test_no_csv_files(self, mocker):
+        mocker.patch('builtins.input', return_value='2')
+        assert process_folder('file', 'test_data/no_csv_files', None, 1) == None
+
+    #  Tests that the function can handle a folder with invalid mapping
+    def test_invalid_mapping(self, mocker):
+        mocker.patch('builtins.input', return_value='2')
+        assert process_folder('file', 'test_data/invalid_mapping', None, 1) == None

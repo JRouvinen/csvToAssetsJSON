@@ -63,14 +63,14 @@ def get_mapping(type, folder):
         return vm_mapping_dict, vm_mapping_name
     elif type == 'test':
         # create test mapping
-        test_mapping = file_handler.file_handling('open', '/mapping/test_mapping.ini', False)
+        test_mapping = file_handler.file_handling('open', '../mapping/test_mapping.ini', False)
         test_mapping = test_mapping.read()
         test_mapping = test_mapping.splitlines()
         if test_mapping[0].startswith('#') is True:
             test_mapping = test_mapping[4:]
         test_mapping_dic = create_dict(test_mapping)
         # create license mapping
-        test_lic_mapping = file_handler.file_handling('open', '/mapping/test_license_mapping.ini', False)
+        test_lic_mapping = file_handler.file_handling('open', '../mapping/test_license_mapping.ini', False)
         test_lic_mapping = test_lic_mapping.read()
         test_lic_mapping = test_lic_mapping.splitlines()
         if test_lic_mapping[0].startswith('#') is True:
