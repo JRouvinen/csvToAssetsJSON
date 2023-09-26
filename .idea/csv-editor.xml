@@ -3,35 +3,49 @@
   <component name="CsvFileAttributes">
     <option name="attributeMap">
       <map>
-        <entry key="\test_folder\test_hw_version_info.csv">
+        <entry key="\sample_files\Ydin_Dz_asennus_04032023.csv">
           <value>
             <Attribute>
               <option name="separator" value=";" />
             </Attribute>
           </value>
         </entry>
-        <entry key="\test_folder\test_vm_inventory.csv">
+        <entry key="\sample_files\Ydin_Dz_asennus_14042023.csv">
           <value>
             <Attribute>
               <option name="separator" value=";" />
             </Attribute>
           </value>
         </entry>
-        <entry key="\version_info_fref1\version_info_fref1_extsrv.csv">
+        <entry key="\sample_files\hw_version_info.csv">
           <value>
             <Attribute>
               <option name="separator" value=";" />
             </Attribute>
           </value>
         </entry>
-        <entry key="\version_info_fref1\version_info_fref1_mgmt_intsrv.csv">
+        <entry key="\sample_files\lisenssit_asennus_24042023.csv">
           <value>
             <Attribute>
               <option name="separator" value=";" />
             </Attribute>
           </value>
         </entry>
-        <entry key="\version_info_fref1\vm_inventory_fref1.csv">
+        <entry key="\sample_files\new files\vm_inventory.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value=";" />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\sample_files\vm_inventory_testfref.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value=";" />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\test_folder\lisenssit_asennus_24042023.csv">
           <value>
             <Attribute>
               <option name="separator" value=";" />
