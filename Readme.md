@@ -1,4 +1,4 @@
-## CSV to JSON Converter v0.43
+## CSV to JSON Converter vB0.13
 
 The CSV to JSON converter is a Python script that converts CSV files into JSON files. It supports Python version 3.8 or newer.
 
@@ -41,8 +41,8 @@ The JSON file will contain an array of JSON objects, where each object correspon
             |__main
             |       |__file_handler.py
             |       |__mapping.py
-            |       |__procedss_file.py
-            |       |__process_folder.py
+            |       |__procedss_file_b.py
+            |       |__process_folder_b.py
             |       |__progress_bar.py
             |       |__util_tools.py
             |__mapping

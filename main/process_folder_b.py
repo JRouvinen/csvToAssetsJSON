@@ -32,7 +32,7 @@ cend = '\033[0m'
 chead = '\033[42m'
 
 
-def process_folder(*args):  # args: ['file' / 'dir'], [path], [mapping], [csv files], [env name]
+def process_folder(*args):  # args: ['file' / 'dir'], [path], [mapping], [csv files], [env name], [version]
     folder = args[1]
     number_of_csv_files = int(args[3])
     directory = os.getcwd()
@@ -45,6 +45,7 @@ def process_folder(*args):  # args: ['file' / 'dir'], [path], [mapping], [csv fi
     mapping_type = args[2]
     csv_files = args[3]
     env_name = args[4]
+    ver = args[5]
     file_name_short = None
     if mapping_type == 'test':
         # get mapping
@@ -217,7 +218,7 @@ def process_folder(*args):  # args: ['file' / 'dir'], [path], [mapping], [csv fi
                             # Updated on version B0.13
                             # unit_key = file_process_id+"_"+str(lines_processed)
                             unit_key = env_name
-                            unit_dict = {'import key': "", 'component': "", 'name': "", 'version': "",
+                            unit_dict = {'import key': "", 'unit':"",'component': "", 'name': "", 'version': "",
                                          'expiration date': "", 'expiration status': '', 'responsible manager': '',
                                          'json created': ''}
 
@@ -256,7 +257,7 @@ def process_folder(*args):  # args: ['file' / 'dir'], [path], [mapping], [csv fi
                                         upper_element = None
                                 if upper_element is None:
                                     print(
-                                        f'{cyellow}[INPUT] Unit {unit} does not exist in mapping file, do you want to:{cend}')
+                                        f'{cyellow}[INPUT] Unit {unit} on line {lines_processed} does not exist in mapping file, do you want to:{cend}')
                                     user_input = input(
                                         f'{cyellow}[INPUT] 1 - Manually add component for {unit}\n, 2 - Skip this unit {cend}')
                                     if user_input == '1':
@@ -277,12 +278,12 @@ def process_folder(*args):  # args: ['file' / 'dir'], [path], [mapping], [csv fi
                                         pass
                                 if upper_element is not None:
                                     # unit_dict['component'] = upper_element + "-" + component
-                                    # unit_dict['name'] = unit
+                                    unit_dict['unit'] = upper_element
                                     # tests for better handling vB0.12
-                                    unit_dict['name'] = unit
-                                    unit_dict['component'] = upper_element
+                                    unit_dict['name'] = component
+                                    unit_dict['component'] = unit
                                     # Updated on version B0.13
-                                    unit_dict['import key'] = unit_key + '_' + upper_element + '_' + unit
+                                    unit_dict['import key'] = unit_key + '_' + upper_element + '_' + unit+'_'+component
                                     unit_dict['version'] = ver
                                     # unit_dict['expiration date'] = ''
                                     # unit_dict['expiration status'] = ''
@@ -303,7 +304,7 @@ def process_folder(*args):  # args: ['file' / 'dir'], [path], [mapping], [csv fi
             if processed_csv_files == csv_files:
                 asset_json_dict[file_name_short].append(
                     {'name': 'Project_connector', 'Created': str(util_tools.get_date_time('date')),
-                     'import key': file_process_id + "_" + str(util_tools.get_date_time('date'))})
+                     'import key': file_process_id + "_" + str(util_tools.get_date_time('date')),'version': ver})
                 asset_json_dict_to_write = str(asset_json_dict)
                 asset_json_dict_to_write = asset_json_dict_to_write.replace("'", '"')
                 # new_json_to_write = json.dumps(asset_json_dict_to_write)

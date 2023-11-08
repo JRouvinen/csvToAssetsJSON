@@ -1,0 +1,33 @@
+ext-srv-esxi;BIOS version;U32
+ext-srv-esxi;Enclosure SN;CZJ906029B
+ext-srv-esxi;Product Name;ProLiant DL360 Gen10
+firewall1;Forcepoint NGFW;6.10.2011
+firewall1;Product name;1101-0-C1
+firewall1;Serial number;N0C2902071
+firewall1;STONE-ID;0b872bb16e-d5248cfc2a-0133.00-6.3.0
+firewall2;Forcepoint NGFW;6.10.2011
+firewall2;Product name;1101-1-C1
+firewall2;Serial number;N0C2A4600152
+firewall2;STONE-ID;0e9344a86f-b7e9f904be-0133.01-6.3.0
+firewall3;Forcepoint NGFW;6.10.2011
+firewall3;Product name;1101-0-C1
+firewall3;Serial number;N0C2902073
+firewall3;STONE-ID;4eac3372d0-04a3741d86-0133.00-6.3.0
+int-srv2-esxi;BIOS version;U32
+int-srv2-esxi;Enclosure SN;CZJ9060296
+int-srv2-esxi;Product Name;ProLiant DL360 Gen10
+int-srv-esxi;BIOS version;U32
+int-srv-esxi;Enclosure SN;CZJ9060297
+int-srv-esxi;Product Name;ProLiant DL360 Gen10
+router;IOS ISR;16.12.2005
+router;IOS XE;16.12.2005
+router;Serial number;FCZ2306B0G7
+switch1;Catalyst L3;16.6.2004
+switch1;IOS XE;16.6.2004
+switch1;Serial number;FOC2251X0NC
+switch2;Catalyst L3;16.6.2004
+switch2;IOS XE;16.6.2004
+switch2;Serial number;FCW2251C0X6
+switch3;Catalyst L3;16.6.2004
+switch3;IOS XE;16.6.2004
+switch3;Serial number;FCW2224F02Z

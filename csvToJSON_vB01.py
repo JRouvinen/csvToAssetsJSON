@@ -67,20 +67,21 @@ chead = '\033[42m'
 
 
 # create json from csv
-def create_asset_json(*args):  # args: ['file' / 'dir'], [path], [mapping], [csv files], [env name]
+def create_asset_json(*args):  # args: ['file' / 'dir'], [path], [mapping], [csv files], [env name], [version]
 
     file_folder = args[0]
     path = args[1]
     mapping = args[2]
     csv_file = args[3]
     env_name = args[4]
+    ver = args[5]
     # process single file
     if file_folder == 'file':
         result = main.process_file_b.process_file(file_folder, path, mapping, csv_file)
 
     # process folder
     else:
-        result = process_folder_b.process_folder(file_folder, path, mapping, csv_file, env_name)
+        result = process_folder_b.process_folder(file_folder, path, mapping, csv_file, env_name, ver)
     print(f'{cgreen}----------------------------------------------------{cend}')
     print(f'{cgreen}[#] {result}!{cend}')
 
@@ -142,8 +143,7 @@ if __name__ == '__main__':
     csv_files = None
     mapping_files_missing = False
     user_input = None
-
-    mapping = mapping
+    ver = __version__
     print(f'{cyellow}[<-] Checking file (mapping/sw_mapping.ini) path...{cend}')
     check = util_tools.check_file_or_folder_exists('mapping/sw_mapping.ini', 'file')
     if check is True:
@@ -183,4 +183,4 @@ if __name__ == '__main__':
             name_check[1] = ""
         else:
             print(f'{cgreen}[->] Filenames in folder match {cend}')
-    create_asset_json(file, file_name, mapping, csv_files, name_check[1])  # args: ['file' / 'dir'], [path], [mapping], [csv files], [env name]
+    create_asset_json(file, file_name, mapping, csv_files, name_check[1], ver)  # args: ['file' / 'dir'], [path], [mapping], [csv files], [env name]
