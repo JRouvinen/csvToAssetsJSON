@@ -104,7 +104,10 @@ def process_folder(*args):  # args: ['file' / 'dir'], [path], [mapping], [csv fi
                 asset_json_dict = {server_name: []}
             # create sw and hw value lists into asset json
             component = None
-            component_list = []
+            if len(added_keys) == 0:
+                component_list = []
+            else:
+                component_list = added_keys
             component_dict = None
             lines_processed = 0
             old_upper_element = None
@@ -138,10 +141,10 @@ def process_folder(*args):  # args: ['file' / 'dir'], [path], [mapping], [csv fi
                     component = line[:component_loc]
                     component = util_tools.clean_srt(component)
                     # append asset json dict
-                    if component not in component_list:
-                        component_list.append(component)
-                        component_dict = {component: []}
-                        asset_json_dict[server_name].append(component_dict)
+                    #if component not in component_list:
+                    #    component_list.append(component)
+                    #    component_dict = {component: []}
+                    #    asset_json_dict[server_name].append(component_dict)
                     # get unit data
                     unit_loc = line.rfind(concate)
                     unit = line[component_loc + 1:]
@@ -158,16 +161,30 @@ def process_folder(*args):  # args: ['file' / 'dir'], [path], [mapping], [csv fi
                     unit_dict = {'import key': "", 'unit': "", 'component': "", 'version': "",
                                  'expiration date': "", 'expiration status': '', 'responsible manager': '',
                                  }
-                    unit_dict['import key'] = server_name + '_' + unit_name + '_' + component + '_' + component
+                    unit_dict['import key'] = server_name + '_' + unit_name + '_' + component
                     unit_dict['unit'] = unit
                     unit_dict['component'] = component
                     unit_dict['version'] = ver
                     #find correct asset_json_dict index for component
-                    print(len(asset_json_dict[server_name]))
-                    for i in range(0, len(asset_json_dict[server_name][0].keys())):
-                        if component in asset_json_dict[server_name][i].keys():
-                            asset_json_dict[server_name][i][component].append(unit_dict)
-
+                    unit_dict_added = False
+                    for i in range(0, len(asset_json_dict[server_name])):
+                        value = list(asset_json_dict[server_name][i].keys())[0]
+                        indx = 0
+                        for y in asset_json_dict[server_name][i][value]:
+                            key_y = list(y.keys())[0]
+                            if component == key_y:
+                                asset_json_dict[server_name][i][value][indx][key_y].append(unit_dict)
+                                unit_dict_added = True
+                            indx += 1
+                    if not unit_dict_added:
+                        print(f'{cyellow}[!] {component} not found in premade template, trying to figure correct placement {cend}' + '\r', end='')
+                        #check if correct unit exists
+                        for i in range(0, len(asset_json_dict[server_name])):
+                            value = list(asset_json_dict[server_name][i].keys())[0]
+                            if value == unit_name:
+                                new_dict = {component:[]}
+                                asset_json_dict[server_name][i].append(new_dict)
+                                asset_json_dict[server_name][i][component].append(unit_dict)
             lines_processed += 1
         lines_processed += 1
         percents = 100
