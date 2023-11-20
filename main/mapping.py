@@ -77,7 +77,14 @@ def get_mapping(type, folder):
             test_lic_mapping = test_lic_mapping[4:]
         test_lic_mapping_dic = create_dict(test_lic_mapping)
         return test_mapping_dic, test_mapping_dic, test_lic_mapping_dic
-
+    elif type == 'name':
+        vm_file = file_handler.file_handling('open', folder, True)
+        vm_name = vm_file.readline()
+        vm_name = vm_name.split('.')
+        vm_name = vm_name[2:]
+        vm_name_srt = '.'.join(vm_name)
+        vm_name_srt = vm_name_srt.replace('\n', '')
+        return vm_name_srt
     else:
         #create sw mapping
         sw_mapping = file_handler.file_handling('open', '/mapping/sw_mapping.ini', False)
