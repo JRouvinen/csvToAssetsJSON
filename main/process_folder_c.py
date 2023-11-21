@@ -175,6 +175,16 @@ def process_folder(*args):  # args: ['file' / 'dir'], [path], [mapping], [csv fi
                             if component == key_y:
                                 asset_json_dict[server_name][i][value][indx][key_y].append(unit_dict)
                                 unit_dict_added = True
+                            else:
+                                component_switch = component.split('-')
+                                if len(component_switch) > 1:
+                                    component_switch = component_switch[1]+'-'+component_switch[0]
+                                else:
+                                    component_switch = component_switch[0]
+                                if component_switch == key_y:
+                                    unit_dict['component'] = component_switch
+                                    asset_json_dict[server_name][i][value][indx][key_y].append(unit_dict)
+                                    unit_dict_added = True
                             indx += 1
                     if not unit_dict_added:
                         print(f'{cyellow}[!] {component} not found in premade template, trying to figure correct placement {cend}' + '\r', end='')
@@ -182,9 +192,48 @@ def process_folder(*args):  # args: ['file' / 'dir'], [path], [mapping], [csv fi
                         for i in range(0, len(asset_json_dict[server_name])):
                             value = list(asset_json_dict[server_name][i].keys())[0]
                             if value == unit_name:
+                                print(f'{cyellow}[!] Creating new partition into {value} for {component}  {cend}' + '\r',
+                                    end='')
                                 new_dict = {component:[]}
                                 asset_json_dict[server_name][i].append(new_dict)
                                 asset_json_dict[server_name][i][component].append(unit_dict)
+                                unit_dict_added = True
+                        if not unit_dict_added:
+                        # piece together new unit for the server from file name
+                            new_server_name = fil_name.split('_')[2:]
+                            if new_server_name[0] == env_name and not unit_dict_added:
+                                new_server_name = new_server_name[1:]
+                                new_server_name = new_server_name[1] + '_' + new_server_name[0]
+                                new_server_name = new_server_name.replace('.csv', '')
+                            else:
+                                new_server_name = '_'.join(new_server_name)
+                        #check if similar server name exists
+                            for i in range(0, len(asset_json_dict[server_name])):
+                                value = list(asset_json_dict[server_name][i].keys())[0]
+                                if value == new_server_name:
+                                    print(f'{cyellow}[!] Creating new partition into {value} for {component}  {cend}' + '\r',
+                                        end='')
+                                    # add new component to asset_json_dict
+                                    new_dict = {component: []}
+                                    lenght = len(asset_json_dict[server_name])
+                                    asset_json_dict[server_name][lenght-1][value].append(new_dict)
+                                    lenght_2 = len(asset_json_dict[server_name][lenght - 1][value])
+                                    asset_json_dict[server_name][lenght-1][value][lenght_2 - 1][component].append(unit_dict)
+                                    unit_dict_added = True
+
+                            if not unit_dict_added:
+                                # add new unit to asset_json_dict
+                                    asset_json_dict[server_name].append({new_server_name: []})
+                                # add new component to asset_json_dict
+                                    new_dict = {component: []}
+                                    lenght = len(asset_json_dict[server_name])
+                                    asset_json_dict[server_name][lenght-1][new_server_name].append(new_dict)
+                                    asset_json_dict[server_name][lenght-1][new_server_name][0][component].append(unit_dict)
+                                    unit_dict_added = True
+                                # add new unit_dict to asset_json_dict
+                        if not unit_dict_added:
+                            print(f'{cyellow}[!] Could not find correct placement for {component}, skipping... {cend}' + '\r', end='')
+
             lines_processed += 1
         lines_processed += 1
         percents = 100
