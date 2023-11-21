@@ -234,7 +234,7 @@ def process_folder(*args):  # args: ['file' / 'dir'], [path], [mapping], [csv fi
                         if not unit_dict_added:
                             print(f'{cyellow}[!] Could not find correct placement for {component}, skipping... {cend}' + '\r', end='')
 
-            lines_processed += 1
+                lines_processed += 1
         lines_processed += 1
         percents = 100
         prog_bar = progress_bar.print_progress_bar(lines,
