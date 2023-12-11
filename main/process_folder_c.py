@@ -4,7 +4,7 @@
 #                                                                        #
 # Author: Rouvinen Juha-Matti, Insta Advance                             #
 # Date: 17/11/2023                                                       #
-# Updated: 17/11/2023                                                    #
+# Updated: 12/12/2023                                                    #
 ############################# License ####################################
 #       Copyright [2023] [Insta Advance, Juha-Matti Rouvinen]            #
 #                                                                        #
@@ -16,6 +16,7 @@
 ##########################################################################
 import fnmatch
 import random
+from datetime import datetime
 
 # imports
 from main import util_tools, file_handler, progress_bar, mapping
@@ -45,7 +46,9 @@ def process_folder(*args):  # args: ['file' / 'dir'], [path], [mapping], [csv fi
     mapping_type = args[2]
     csv_files = args[3]
     env_name = args[4]
-    file_process_id = env_name + '_' + str(random.Random().randint(1, 1000000))
+    now = datetime.now()
+    file_process_id = str(datetime.timestamp(now))+'_' +env_name
+    file_process_id = file_process_id.split('.')[0]
     ver = args[5]
     file_name_short = None
     # check if vm_inventory file exists
@@ -82,7 +85,8 @@ def process_folder(*args):  # args: ['file' / 'dir'], [path], [mapping], [csv fi
                 index += 1
 
     for fil_name in files_in_folder:
-        if fil_name.endswith('.csv'):
+        not_vm_inventory = fil_name.find('vm_inventory')
+        if fil_name.endswith('.csv') and not_vm_inventory == -1:
             if processed_csv_files > 0:
                 print()
             file_to_read = folder + '/' + fil_name
@@ -161,7 +165,7 @@ def process_folder(*args):  # args: ['file' / 'dir'], [path], [mapping], [csv fi
                     unit_dict = {'import key': "", 'unit': "", 'component': "", 'version': "",
                                  'expiration date': "", 'expiration status': '', 'responsible manager': '',
                                  }
-                    unit_dict['import key'] = server_name + '_' + unit_name + '_' + component
+                    unit_dict['import key'] = file_process_id + '_' + unit_name + '_' + component+'_'+unit
                     unit_dict['unit'] = unit
                     unit_dict['component'] = component
                     unit_dict['version'] = ver

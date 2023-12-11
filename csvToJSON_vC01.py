@@ -24,7 +24,7 @@ from main import util_tools, process_file_b, process_folder_b, process_folder_c
 # common variables
 opened_files = []
 __app_name__ = "CSV to JIRA Asset JSON"
-__version__ = "C1.0"
+__version__ = "C1.1"
 # change log
 change_log = [
 
@@ -54,6 +54,7 @@ change_log = [
     'B0.12 -> added "local key" field to JSON #29/06/2023',
     'B0.13 -> changed method how import key is created #25/09/2023',
     'C1.0 -> changed whole json structure #17/11/2023',
+    'C1.1 -> bug fixes on json structure generation - process_folder_c.py #12/12/2023',
 
 ]
 
