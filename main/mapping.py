@@ -17,6 +17,41 @@
 
 from main import file_handler
 
+def get_csv_mapping():
+    def create_dict(map_file):
+        unit = ""
+        component = ""
+        mapping_dict = {}
+        for line in map_file:
+            if line.startswith('[') is True:
+                component = ""
+                component = line.strip()
+                component = component.replace('[', '')
+                component = component.replace(']', '')
+
+            elif line.startswith('Header') is True:
+                unit_start = line.find('=')
+                unit = line[unit_start + 2:]
+                unit = unit.strip()
+
+            if component != '' and unit == '':
+                mapping_dict[component] = unit
+                #component = ""
+            if unit != '' and component != '':
+                mapping_dict[component] = unit
+                component = ""
+                unit = ""
+        return mapping_dict
+    #csv_file = file_handler.file_handling('open', file, True)
+    #csv_mapping = csv_file.readlines()
+    # create csv mapping
+    csv_mapping = file_handler.file_handling('open', '/mapping/csv_mapping.ini', False)
+    csv_mapping = csv_mapping.read()
+    csv_mapping = csv_mapping.splitlines()
+    if csv_mapping[0].startswith('#') is not True:
+        csv_mapping = csv_mapping[4:]
+    csv_mapping_dic = create_dict(csv_mapping)
+    return csv_mapping_dic
 #mapping parser
 def get_mapping(type, folder):
     def create_dict(map_file):
