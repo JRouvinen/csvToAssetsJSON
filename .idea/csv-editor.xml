@@ -3,6 +3,13 @@
   <component name="CsvFileAttributes">
     <option name="attributeMap">
       <map>
+        <entry key="\output\2024-01-09\version_info_fref2_extsrv_jira_assets.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value=";" />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\sample_files\new files\vm_inventory.csv">
           <value>
             <Attribute>
