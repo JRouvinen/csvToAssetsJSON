@@ -1,10 +1,10 @@
 ############################# Description ################################
 # This script is created for FINLION FMN project.                        #
-# This script is to converts csv files into JIRA Asset JSON format files #
+# This script is to converts csv files into JIRA Asset CSV format files #
 #                                                                        #
 # Author: Rouvinen Juha-Matti, Insta Advance                             #
 # Date: 10/04/2023                                                       #
-# Updated: 14/06/2023                                                    #
+# Updated: 29/01/2024                                                    #
 ############################# License ####################################
 #       Copyright [2023] [Insta Advance, Juha-Matti Rouvinen]            #
 #                                                                        #
@@ -25,12 +25,13 @@ from datetime import datetime
 # common variables
 opened_files = []
 __app_name__ = "CSV to JIRA Asset CSV Converter"
-__version__ = "D1.2"
+__version__ = "1.3"
 # change log
 change_log = [
     '1.0: Initial version',
     '1.1: Updated server and component parsing',
     '1.2: Updated project connector creation',
+    '1.3: Updated import key creation and name parsing',
 ]
 
 # print colors
@@ -117,7 +118,7 @@ def create_asset_csv(file, file_name, csv_files, name_check,
                 server_name = new_file_name_list[2]
                 component_name = new_file_name_list[3]
                 # Create import keys
-                import_key_header = file_process_id + '_' + server_name
+                #import_key_header = file_process_id + '_' + server_name
                 number = 0
                 path = date_dir + '/' + new_file_name
                 newfile_already_exists = os.path.isfile(path)
@@ -125,15 +126,18 @@ def create_asset_csv(file, file_name, csv_files, name_check,
                     newfile_already_exists = os.path.isfile(path)
                     if newfile_already_exists is True:
                         number += 1
-                    new_file_name = fil_name.split('.')[0] + '_jira_assets' + '_' + str(number) + '.csv'
+                    #new_file_name = fil_name.split('.')[0] + '_jira_assets' + '_' + str(number) + '.csv'
+                    new_file_name = fil_name.replace('.csv', '') + '_jira_assets' + '_' + str(number) + '.csv'
                     path = date_dir + '/' + new_file_name
                 if number == 0:
-                    new_file_name = fil_name.split('.')[0] + '_jira_assets' + '.csv'
+                    #new_file_name = fil_name.split('.')[0] + '_jira_assets' + '.csv'
+                    new_file_name = fil_name.replace('.csv', '') + '_jira_assets' + '.csv'
                 new_file = open(date_dir + '/' + new_file_name, 'w')
                 print(f'{(cgreen)}[->] Writing file: {date_dir}/{new_file_name}{(cend)}')
                 new_file.write(str(file_header_str) + '\n')
                 line_index = 0
                 if len(processed_files) == 0:
+                    import_key_header = file_process_id + '_' + server_name
                     line_to_write_list = [import_key_header + '_' + "Project_connector"]
                     line_to_write_list.append("Jira")
                     line_to_write_list.append("Assets")
@@ -146,7 +150,8 @@ def create_asset_csv(file, file_name, csv_files, name_check,
                         line_index += 1
                         line_parts = x.split(';')
                         line_to_write_list = []
-                        line_to_write_list.append(import_key_header + '_' + str(line_index))
+                        import_key_header = file_process_id + '_' + str(line_index) + '_' + server_name
+                        line_to_write_list.append(import_key_header)
                         line_to_write_list.append(component_name)
                         line_to_write_list = line_to_write_list + line_parts
                         if len(file_header) - len(line_to_write_list) > 0:

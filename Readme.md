@@ -1,4 +1,4 @@
-## CSV to JSON Converter vB0.13
+## CSV to JSON Converter vB01
 
 The CSV to JSON converter is a Python script that converts CSV files into JSON files. It supports Python version 3.8 or newer.
 
@@ -32,7 +32,7 @@ The converter script will create a new JSON file for each CSV file specified in 
 The JSON file will contain an array of JSON objects, where each object corresponds to a row in the CSV file, grouped by the mapping INI files.
 
 ### Project structure
-``` css
+``` python
 -> main folder
             |
             csvToJSON_vX.XX.py
@@ -57,7 +57,7 @@ The JSON file will contain an array of JSON objects, where each object correspon
 
 To use the converter script, run the following command:
 
-``` css
+``` python
 python csvToJSON.py -f <single_file_path> 
 #or
 python csvToJSON.py -d <folder_path> 
@@ -80,7 +80,7 @@ firewall1;Serial number;N0C2902071
 
 To convert the CSV file located in the directory `/path/to/csv` into JSON file we would run the following command:
 
-``` css
+``` python
 python csvToJSON.py -f /path/to/csv/hw_version_info.csv 
 ```
 
@@ -140,3 +140,7 @@ All mapped licenses should be nested under single [header] and marked with 'Unit
 ## Components
 
 ![csvToJSON_v0411.png](images%2FcsvToJSON_v0411.png)
+
+## CSV to JSON Converter vC01
+
+## CSV to CSV Converter v1.3
