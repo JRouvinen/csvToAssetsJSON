@@ -1,6 +1,7 @@
-## CSV to JSON Converter vB01
+## CSV to Asset Csv Converter v1.3
 
-The CSV to JSON converter is a Python script that converts CSV files into JSON files. It supports Python version 3.8 or newer.
+The CSV to Asset Csv converter is a Python script that converts CSV files into Jira Asset compatible Csv files. 
+It supports Python version 3.8 or newer.
 
 ### Requirements
 
@@ -13,7 +14,8 @@ The CSV to JSON converter is a Python script that converts CSV files into JSON f
 
 ### Functionality
 
-The converter script can convert CSV files into JSON files based on a mapping file that determines the data type of each CSV file. The mapping file specifies whether a CSV file contains hardware, software, or license data.
+The converter script can convert CSV files into Asset Csv files. 
+
 
 The mapping files are INI files that are automatically processed, they can be passed as an argument to the converter script. The mapping file specifies the following information for each data type:
 

@@ -223,7 +223,7 @@ if __name__ == '__main__':
         name_check = util_tools.file_names(file_name[0])
         if name_check[0]:
             print(f"{cyellow} [#] All filenames in folder don't match! {cend}")
-            name_check[1] = ""
+            #name_check[1] = ""
         else:
             print(f'{cgreen}[->] {csv_files} filenames in folder match to *.csv {cend}')
     create_asset_csv(file, file_name, csv_files, name_check[1],
