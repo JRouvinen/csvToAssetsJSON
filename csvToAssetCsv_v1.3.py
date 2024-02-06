@@ -25,13 +25,14 @@ from datetime import datetime
 # common variables
 opened_files = []
 __app_name__ = "CSV to JIRA Asset CSV Converter"
-__version__ = "1.3"
+__version__ = "1.3.1"
 # change log
 change_log = [
     '1.0: Initial version',
     '1.1: Updated server and component parsing',
     '1.2: Updated project connector creation',
     '1.3: Updated import key creation and name parsing',
+    '1.3.1: Fixed import key creation',
 ]
 
 # print colors
@@ -143,6 +144,7 @@ def create_asset_csv(file, file_name, csv_files, name_check,
                     line_to_write_list.append("Assets")
                     line_to_write_list.append("Project_connector")
                     line_to_write_list.append(__version__)
+                    line_to_write_list.append("")
                     line_to_write = ';'.join(line_to_write_list)
                     new_file.write(str(line_to_write) + '\n')
                 for x in csv_file_lines:
