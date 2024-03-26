@@ -27,21 +27,17 @@ The JSON file will contain an array of JSON objects, where each object correspon
 ``` python
 -> main folder
             |
-            csvToAssetCsv_vX.XX.py
+            csvToAssetCsv_vX.Y.py
             csvToAssetCsv_Readme.md
             csvToJSON_Readme.md
             LICENSE
             |__main
             |       |__file_handler.py
             |       |__mapping.py
-            |       |__procedss_file_b.py
-            |       |__process_folder_b.py
             |       |__progress_bar.py
             |       |__util_tools.py
             |__mapping
-            |         |__hw_mapping.ini
-            |         |__sw_mapping.ini
-            |         |__license_mapping.ini
+            |         |__csv_mapping.ini
             |__output #in this folder you will find the generated json files
             |__images #images for README file              
 ```
@@ -56,8 +52,4 @@ python csvToAssetCsv_vX.Y.py -d <folder path>
 The skript tries to convert each *.csv file that has 'srv', 'software' or 'license' in its name into Asset compatible csv file.
 Each file is written into output-folder under current day path
 
-
-## Components
-
-![csvToJSON_v0411.png](images%2FcsvToJSON_v0411.png)
 

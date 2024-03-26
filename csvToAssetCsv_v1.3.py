@@ -19,7 +19,7 @@
 import os
 import argparse
 import main.mapping
-from main import util_tools, process_file_b, process_folder_b, process_folder_c, file_handler
+from main import util_tools, file_handler
 from datetime import datetime
 
 # common variables
